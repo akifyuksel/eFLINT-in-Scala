@@ -1,0 +1,53 @@
+# 
+// based on example buying-playing-songs from https://gitlab.com/eflint/haskell-implementation 
+// Frames
+
+Fact webshop      // actor
+Fact buyer        // actor
+Fact sweater      // product
+
+Fact in-stock Identified by webshop * sweater // does the webshop have the sweater in stock?
+Fact payment Identified by buyer * sweater // has the buyer paid for the sweater?
+Fact has-received Identified by buyer * webshop // has the buyer received the sweater?
+
+Act order-sweater
+  Actor webshop
+  Recipient buyer
+  Related to sweater
+  Creates payment(buyer, sweater)
+  Holds when in-stock(webshop, sweater) // Webshop must have the sweater in stock
+
+Fact day Identified by Int
+Placeholder current-day For day
+
+Act pay-order
+  Actor buyer
+  Recipient webshop
+  Related to sweater
+  Holds when payment(buyer, webshop)
+
+Duty duty-to-send
+  Holder webshop
+  Claimant buyer
+  Related to sweater, day
+  Violated when current-day > day // the current day is larger than the duedate
+
+##
+// Domains
+
+//you can redefine fact-types here to given them narrower scope (less instances)
+//this allows you to zoom in on the case analyzed by the scenario
+
+
+
+###
+// Initial state
+
+day(0).
+owner-of(NOYS,song).
+
+####
+
+// Scenario: Alice buys a sweater from VD. 
+
+

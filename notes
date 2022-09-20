@@ -1,0 +1,15 @@
+- wat is de info die ik wil weergeven wanneer bijv een violation tot stand komt
+- exploring interpreter
+- als trace niet genoeg info geeft, bouw prototype voor extensie aan eflint (in Scala)
+- configuraties: nodes, programma's: edges
+
+
+
+- edit feedback from interpreter when ?user is called (instead of query failed, say why it failed and at what step.
+- explore interpreter with :s and :d. :d <INT> shows the configuration at state <INT>. 
+- :o could also come in handy.
+- you can use haskell to display interpreter programs (edges). so instead of the configuration 
+  it shows the transition from one configuration to the next. This will come in handy for
+  explaining what happened.
+- werk voorbeeld delivery verder uit
+
