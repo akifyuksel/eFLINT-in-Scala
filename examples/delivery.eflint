@@ -7,14 +7,15 @@ Fact buyer        // actor
 Fact sweater      // product
 
 Fact in-stock Identified by webshop * sweater // does the webshop have the sweater in stock?
-Fact payment Identified by buyer * sweater // has the buyer paid for the sweater?
-Fact has-received Identified by buyer * webshop // has the buyer received the sweater?
+
+Fact time-in-minutes identified by Int
+Placeholder current-time For time-in-minutes
 
 Act order-sweater
   Actor webshop
   Recipient buyer
   Related to sweater
-  Creates payment(buyer, sweater)
+  Creates duty-to-pay(buyer, webshop, sweater, time-in-minutes+30)
   Holds when in-stock(webshop, sweater) // Webshop must have the sweater in stock
 
 Fact day Identified by Int
@@ -24,13 +25,32 @@ Act pay-order
   Actor buyer
   Recipient webshop
   Related to sweater
-  Holds when payment(buyer, webshop)
+  Terminates duty-to-pay When duty-to-pay.buyer == buyer 
+                           && duty-to-pay.webshop == webshop
+                           && duty-to-pay.sweater == sweater
+  Creates duty-to-send(webshop, buyer, sweater, day+7)
+  Holds when duty-to-pay
+
+Act send-sweater
+  Actor webshop
+  Recipient buyer
+  Related to sweater
+  Terminates duty-to-send When duty-to-send.webshop == webshop
+                               duty-to-send.webshop == buyer
+                               duty-to-send.sweater == sweater
+  Holds when duty-to-send
 
 Duty duty-to-send
   Holder webshop
   Claimant buyer
   Related to sweater, day
   Violated when current-day > day // the current day is larger than the duedate
+
+Duty duty-to-pay
+  Holder buyer
+  Claimant webshop
+  Related to sweater, time-in-minutes
+  Violated when current-time > time-in-minutes // buyer took too long to pay
 
 ##
 // Domains
@@ -44,7 +64,7 @@ Duty duty-to-send
 // Initial state
 
 day(0).
-owner-of(NOYS,song).
+
 
 ####
 
