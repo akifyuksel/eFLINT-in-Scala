@@ -73,34 +73,34 @@ order-product(Alice, VD, Sweater).
 ?duty-to-pay                                      // the product cannot be ordered as it is not in stock
 
 // Scenario 2: Alice buys a product, but doesn't pay in time.
--in-stock(0). +in-stock(1).
-order-product(Alice, VD, Sweater).
-?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
--time-in-minutes(0). +time-in-minutes(13).
-?!Violated(duty-to-pay(Alice, VD, Sweater, 13)).  // the duty has not yet been violated
--time-in-minutes(13). +time-in-minutes(31).       // it has been over 30 minutes
-?Violated(duty-to-pay(Alice, VD, Sweater, 13)).   // the duty has been violated
-
-// Scenario 3: Alice buys a product from VD. 
--time-in-minutes(31). +time-in-minutes(0).
-order-product(Alice, VD, Sweater).
-?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
-pay-order(Alice, Webshop, Sweater).                // Alice immediately pays the order
-?!duty-to-pay.                                     // the duty has been terminated, as Alice paid for the sweater
-?duty-to-send.                                     // the webshop now needs to send the sweater to Alice
--day(0). +day(1).                                  // 1 day passes
-?!Violated(duty-to-send(VD, Alice, Sweater, 1)).   // the duty to send has not yet been violated
-send-product(Webshop, Alice, Sweater).             // the webshop sends the sweater to alice
-?!duty-to-send.                                    // the duty has been terminated, as the product has been sent
-
-// Scenario 4: Alice buys a product, but VD fails to send.
--day(1). +day(0).
-order-product(Alice, VD, Sweater).
-?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
-pay-order(Alice, Webshop, Sweater).                // Alice immediately pays the order
-?!duty-to-pay.                                     // the duty has been terminated, as Alice paid for the sweater
-?duty-to-send.                                     // the webshop now needs to send the sweater to Alice
--day(0). +day(1).                                  // 1 day passes
-?!Violated(duty-to-send(VD, Alice, Sweater, 1)).   // the duty to send has not yet been violated
--day(1). +day(8).                                  // 8 days pass, over the limit of 7 days
-?Violated(duty-to-send(VD, Alice, Sweater, 8)).    // the duty has now been violated and VD is liable
+// -in-stock(0). +in-stock(1).
+// order-product(Alice, VD, Sweater).
+// ?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
+// -time-in-minutes(0). +time-in-minutes(13).
+// ?!Violated(duty-to-pay(Alice, VD, Sweater, 13)).  // the duty has not yet been violated
+// -time-in-minutes(13). +time-in-minutes(31).       // it has been over 30 minutes
+// ?Violated(duty-to-pay(Alice, VD, Sweater, 13)).   // the duty has been violated
+// 
+// // Scenario 3: Alice buys a product from VD. 
+// -time-in-minutes(31). +time-in-minutes(0).
+// order-product(Alice, VD, Sweater).
+// ?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
+// pay-order(Alice, Webshop, Sweater).                // Alice immediately pays the order
+// ?!duty-to-pay.                                     // the duty has been terminated, as Alice paid for the sweater
+// ?duty-to-send.                                     // the webshop now needs to send the sweater to Alice
+// -day(0). +day(1).                                  // 1 day passes
+// ?!Violated(duty-to-send(VD, Alice, Sweater, 1)).   // the duty to send has not yet been violated
+// send-product(Webshop, Alice, Sweater).             // the webshop sends the sweater to alice
+// ?!duty-to-send.                                    // the duty has been terminated, as the product has been sent
+// 
+// // Scenario 4: Alice buys a product, but VD fails to send.
+// -day(1). +day(0).
+// order-product(Alice, VD, Sweater).
+// ?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
+// pay-order(Alice, Webshop, Sweater).                // Alice immediately pays the order
+// ?!duty-to-pay.                                     // the duty has been terminated, as Alice paid for the sweater
+// ?duty-to-send.                                     // the webshop now needs to send the sweater to Alice
+// -day(0). +day(1).                                  // 1 day passes
+// ?!Violated(duty-to-send(VD, Alice, Sweater, 1)).   // the duty to send has not yet been violated
+// -day(1). +day(8).                                  // 8 days pass, over the limit of 7 days
+// ?Violated(duty-to-send(VD, Alice, Sweater, 8)).    // the duty has now been violated and VD is liable
