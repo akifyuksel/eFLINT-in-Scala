@@ -6,7 +6,7 @@ Fact webshop      // actor
 Fact buyer        // actor
 Fact product      // product
 
-Fact in-stock Identified by boolean // is the product in stock?
+Fact in-stock Identified by Bool. // is the product in stock?
 
 Fact time-in-minutes identified by Int
 Placeholder current-time For time-in-minutes
@@ -36,8 +36,8 @@ Act send-product
   Recipient buyer
   Related to product
   Terminates duty-to-send When duty-to-send.webshop == webshop
-                               duty-to-send.webshop == buyer
-                               duty-to-send.product == product
+                            && duty-to-send.webshop == buyer
+                            && duty-to-send.product == product
   Holds when duty-to-send
 
 Duty duty-to-send
@@ -67,8 +67,8 @@ day(0).
 time-in-minutes(0).
 
 ####
-# Interactions are between Alice, a buyer, and VD, an online clothing store, where
-# Alice orders a sweater.
+// Interactions are between Alice, a buyer, and VD, an online clothing store, where
+// Alice orders a sweater.
 
 // Scenario 1: Alice tries to buy a sweater from VD that is not in stock.
 -in-stock                                         // the Sweater is not in stock
