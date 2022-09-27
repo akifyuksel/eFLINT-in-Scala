@@ -108,8 +108,8 @@ Duty duty-to-pay
 // ?!duty-to-send.                                    // the duty has been terminated, as the product has been sent
 
 // Scenario 4: Alice buys a product, but VD fails to send.
-// -day(1).                                        // uncomment if running together with scenario 2
-// +day(0).                                        // uncomment if running together with scenario 2
+// -day(1).                                        // uncomment if running together with scenario 3
+// +day(0).                                        // uncomment if running together with scenario 3
 
 order-product(Alice, VD, Sweater).
 ?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
