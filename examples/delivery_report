@@ -1,0 +1,41 @@
+
+
+#1 > :d
+
+#1 > :jump 2
+New type buyer
+New type day
+New type duty-to-pay
+New type duty-to-send
+New type in-stock
+New type order-product
+New type pay-order
+New type product
+New type send-product
+New type time-in-minutes
+New type webshop
+#2 > :d
+
+#2 > :jump 3
++time-in-minutes(0)
+#3 > :d
+time-in-minutes(0) = True
+
+#3 > :jump 4
++in-stock(0)
+#4 > :d
+in-stock(0) = True
+time-in-minutes(0) = True
+
+#4 > :jump 5
++duty-to-pay(buyer("VD"),webshop("Alice"),product("Sweater"),time-in-minutes(30))
+#5 > :d
+in-stock(0) = True
+time-in-minutes(0) = True
+duty-to-pay(buyer("VD"),webshop("Alice"),product("Sweater"),time-in-minutes(30)) = True
+
+#5 > :jump 6
+#6 > :d
+in-stock(0) = True
+time-in-minutes(0) = True
+duty-to-pay(buyer("VD"),webshop("Alice"),product("Sweater"),time-in-minutes(30)) = True
