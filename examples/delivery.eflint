@@ -14,8 +14,8 @@ Act order-product
   Actor webshop
   Recipient buyer
   Related to product
-  Creates duty-to-pay(buyer, webshop, product, time-in-minutes+30)
   Holds when in-stock(1) // Webshop must have the product in stock ERROR HERE WHEN in-stock(bogus)
+  Creates duty-to-pay(buyer, webshop, product, time-in-minutes+30)
 
 Fact day Identified by Int
 Placeholder current-day For day
@@ -43,7 +43,7 @@ Duty duty-to-send
   Holder webshop
   Claimant buyer
   Related to product, day
-  Violated when current-day > day // the current day is larger than the duedate
+  Violated when current-day > day // webshop took too long to send
 
 Duty duty-to-pay
   Holder buyer
@@ -68,19 +68,20 @@ Duty duty-to-pay
 // Alice orders a sweater.
 
 // Scenario 1: Alice tries to buy a sweater from VD that is not in stock.
-+in-stock(0).                                      // the Sweater is not in stock
-order-product(Alice, VD, Sweater).
-?duty-to-pay                                      // the product cannot be ordered as it is not in stock
++in-stock(0).                                         // the Sweater is not in stock
+order-product(Alice, VD, Sweater).                    // the product cannot be ordered as it is not in stock
+?duty-to-pay                                          // the buyer does not have a duty to pay, as the product
+                                                      // cannot be ordered
 
 // Scenario 2: Alice buys a product, but doesn't pay in time.
 // -in-stock(0). +in-stock(1).
 // order-product(Alice, VD, Sweater).
 // ?duty-to-pay.                                      // the product is ordered and Alice now has a duty to pay
 // -time-in-minutes(0). +time-in-minutes(13).
-// ?!Violated(duty-to-pay(Alice, VD, Sweater, 13)).  // the duty has not yet been violated
-// -time-in-minutes(13). +time-in-minutes(31).       // it has been over 30 minutes
-// ?Violated(duty-to-pay(Alice, VD, Sweater, 13)).   // the duty has been violated
-// 
+// ?!Violated(duty-to-pay(Alice, VD, Sweater, 13)).   // the duty has not yet been violated
+// -time-in-minutes(13). +time-in-minutes(31).        // it has been over 30 minutes
+// ?Violated(duty-to-pay(Alice, VD, Sweater, 13)).    // the duty has been violated
+//
 // // Scenario 3: Alice buys a product from VD. 
 // -time-in-minutes(31). +time-in-minutes(0).
 // order-product(Alice, VD, Sweater).
