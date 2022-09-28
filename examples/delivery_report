@@ -89,8 +89,9 @@ in-stock(1) = True
 time-in-minutes(13) = True
 duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30)) = True
 
-#9 > ?!Violated(duty-to-pay)
-query successful
+#9 > ?!Violated(duty-to-pay) // report here based on trace
+query successful:
+
 
 #9 > :jump 10
 -time-in-minutes(13)
@@ -106,7 +107,7 @@ time-in-minutes(13) = False
 time-in-minutes(31) = True
 duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30)) = True
 
-#12 > ?Violated(duty-to-pay)
+#12 > ?Violated(duty-to-pay) //report here based on trace
 query successful
 violations:
   violated duty!: duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30))
