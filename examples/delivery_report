@@ -122,13 +122,13 @@ pay-order(Alice, VD, Sweater).                           // #8 Alice immediately
                                                          // sweater #23
 ?duty-to-send(VD, Alice, Sweater, 7).                    // #10 the webshop now needs to send the sweater to Alice #24
 
--day(0).
-+day(1).                                                 // #11 1 day passes #25
-?!Violated(duty-to-send(VD, Alice, Sweater, 7)).         // #12 the duty to send has not yet been violated #26
+-day(0).                                                 // #11 #25
++day(1).                                                 // #12 1 day passes #26
+?!Violated(duty-to-send(VD, Alice, Sweater, 7)).         // #13 the duty to send has not yet been violated #27
 
-send-product(VD, Alice, Sweater).                        // #13 the webshop sends the sweater to alice #27
-?!duty-to-send(VD, Alice, Sweater, 7).                   // #14 the duty has been terminated, as the product has been
-                                                         // sent #28
+send-product(VD, Alice, Sweater).                        // #14 the webshop sends the sweater to alice #28
+?!duty-to-send(VD, Alice, Sweater, 7).                   // #15 the duty has been terminated, as the product has been
+                                                         // sent #29
 
 // Trace
 #4 > :jump 5
@@ -201,24 +201,24 @@ query successful
 
 
 // Scenario 4: Alice buys a product, but VD fails to send.
-// -day(1).                                           // uncomment if running together with scenario 3 #29
-// +day(0).                                           // uncomment if running together with scenario 3 #30
+// -day(1).                                           // uncomment if running together with scenario 3 #30
+// +day(0).                                           // uncomment if running together with scenario 3 #31
 
-order-product(Alice, VD, Sweater).                    // #5 #31
-?duty-to-pay(Alice, VD, Sweater, 30).                 // #6 the product is ordered and Alice now has a duty to pay #32
+order-product(Alice, VD, Sweater).                    // #5 #32
+?duty-to-pay(Alice, VD, Sweater, 30).                 // #6 the product is ordered and Alice now has a duty to pay #33
 
-pay-order(Alice, VD, Sweater).                        // #7 Alice immediately pays the order #33
+pay-order(Alice, VD, Sweater).                        // #7 Alice immediately pays the order #34
 ?!duty-to-pay(Alice, VD, Sweater, 30).                // #8 the duty has been terminated, as Alice paid for the
-                                                      // sweater #34
-?duty-to-send(VD, Alice, Sweater, 7).                 // #9 the webshop now needs to send the sweater to Alice #35
+                                                      // sweater #35
+?duty-to-send(VD, Alice, Sweater, 7).                 // #9 the webshop now needs to send the sweater to Alice #36
 
--day(0).                                              // #10 #36
-+day(1).                                              // #11 1 day passes #37
-?!Violated(duty-to-send(VD, Alice, Sweater, 7)).      // #12 the duty to send has not yet been violated #38
+-day(0).                                              // #10 #37
++day(1).                                              // #11 1 day passes #38
+?!Violated(duty-to-send(VD, Alice, Sweater, 7)).      // #12 the duty to send has not yet been violated #39
 
--day(1).                                              // #13 #39
-+day(8).                                              // #14 8 days pass, over the limit of 7 days #40
-?Violated(duty-to-send(VD, Alice, Sweater, 7)).       // #15 the duty has now been violated and VD is liable #41
+-day(1).                                              // #13 #40
++day(8).                                              // #14 8 days pass, over the limit of 7 days #41
+?Violated(duty-to-send(VD, Alice, Sweater, 7)).       // #15 the duty has now been violated and VD is liable #42
 
 //Trace
 #4 > :d
@@ -319,6 +319,7 @@ violations:
 
 #7
 query successful
+  TODO: insert explanation.
 
 #8
 -in-stock(0)
@@ -332,6 +333,7 @@ order-product(buyer("Alice"),webshop("VD"),product("Sweater")) (ENABLED)
 
 #11
 query successful
+  TODO: insert explanation.
 
 #12
 -time-in-minutes(0)
@@ -341,6 +343,7 @@ query successful
 
 #14
 query successful
+  TODO: insert explanation.
 
 #15
 -time-in-minutes(13)
@@ -352,6 +355,7 @@ violations:
 
 #17
 query successful
+  TODO: insert explanation.
 violations:
   violated duty!: duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30))
 
@@ -367,78 +371,90 @@ order-product(buyer("Alice"),webshop("VD"),product("Sweater")) (ENABLED)
 
 #21
 query successful
+  TODO: insert explanation.
+
+#22
 executed transition:
 pay-order(buyer("Alice"),webshop("VD"),product("Sweater")) (ENABLED)
 -duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30))
 +duty-to-send(webshop("VD"),buyer("Alice"),product("Sweater"),day(7))
 
-#22
-query successful
-
 #23
 query successful
+  TODO: insert explanation.
 
 #24
--day(0)
+query successful
+  TODO: insert explanation.
 
 #25
-+day(1)
+-day(0)
 
 #26
-query successful
++day(1)
 
 #27
+query successful
+  TODO: insert explanation.
+
+#28
 executed transition:
 send-product(webshop("VD"),buyer("Alice"),product("Sweater")) (ENABLED)
 -duty-to-send(webshop("VD"),buyer("Alice"),product("Sweater"),day(7))
 
-#28
-query successful
-
 #29
--day(1)
+query successful
+  TODO: insert explanation.
 
 #30
-+day(0)
+-day(1)
 
 #31
++day(0)
+
+#32
 executed transition:
 order-product(buyer("Alice"),webshop("VD"),product("Sweater")) (ENABLED)
 +duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30))
 
-#32
-query successful
-
 #33
+query successful
+  TODO: insert explanation.
+
+#34
 executed transition:
 pay-order(buyer("Alice"),webshop("VD"),product("Sweater")) (ENABLED)
 -duty-to-pay(buyer("Alice"),webshop("VD"),product("Sweater"),time-in-minutes(30))
 +duty-to-send(webshop("VD"),buyer("Alice"),product("Sweater"),day(7))
 
-#34
-query successful
-
 #35
 query successful
+  TODO: insert explanation.
 
 #36
--day(0)
+query successful
+  TODO: insert explanation.
 
 #37
-+day(1)
+-day(0)
 
 #38
-query successful
++day(1)
 
 #39
+query successful
+  TODO: insert explanation.
+
+#40
 -day(1)
 violations:
   violated duty!: duty-to-send(webshop("VD"),buyer("Alice"),product("Sweater"),day(7))
 
-#40
+#41
 +day(8)
 
-#41
+#42
 query successful
+  TODO: insert explanation.
 violations:
   violated duty!: duty-to-send(webshop("VD"),buyer("Alice"),product("Sweater"),day(7))
