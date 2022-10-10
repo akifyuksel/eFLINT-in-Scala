@@ -1,0 +1,54 @@
+// based on example buying-playing-songs from https://gitlab.com/eflint/haskell-implementation
+// Frames
+
+Fact webshop      // actor
+Fact buyer        // actor
+Fact product      // product
+
+// Fact in-stock Identified by Int          // is the product in stock?
+// Fact in-stock Identified by product      // if multiple products are implemented
+Bool in-stock                               // a better way of defining whether a product is in stock.
+
+Fact time-in-minutes Identified by Int
+Placeholder current-time For time-in-minutes
+
+Act order-product
+  Actor buyer
+  Recipient webshop
+  Related to product
+  Holds when in-stock // Webshop must have the product in stock ERROR HERE WHEN in-stock(bogus)
+  Creates duty-to-pay(buyer, webshop, product, time-in-minutes+30) When in-stock
+
+Fact day Identified by Int
+Placeholder current-day For day
+
+Act pay-order
+  Actor buyer
+  Recipient webshop
+  Related to product
+  Holds when duty-to-pay
+  Terminates duty-to-pay When duty-to-pay.buyer == buyer // post condition
+                           && duty-to-pay.webshop == webshop
+                           && duty-to-pay.product == product
+  Creates duty-to-send(webshop, buyer, product, day+7)
+
+Act send-product
+  Actor webshop
+  Recipient buyer
+  Related to product
+  Holds when duty-to-send
+  Terminates duty-to-send When duty-to-send.webshop == webshop
+                            && duty-to-send.buyer == buyer
+                            && duty-to-send.product == product
+
+Duty duty-to-send
+  Holder webshop
+  Claimant buyer
+  Related to product, day
+  Violated when current-day > day // webshop took too long to send
+
+Duty duty-to-pay
+  Holder buyer
+  Claimant webshop
+  Related to product, time-in-minutes
+  Violated when current-time > time-in-minutes. // buyer took too long to pay
