@@ -5,7 +5,9 @@ Fact webshop      // actor
 Fact buyer        // actor
 Fact product      // product
 
-Fact in-stock Identified by Int // is the product in stock?
+// Fact in-stock Identified by Int          // is the product in stock?
+// Fact in-stock Identified by product      // if multiple products are implemented
+Bool in-stock                               // a better way of defining whether a product is in stock.
 
 Fact time-in-minutes Identified by Int
 Placeholder current-time For time-in-minutes
@@ -14,8 +16,8 @@ Act order-product
   Actor buyer
   Recipient webshop
   Related to product
-  Holds when in-stock(1) // Webshop must have the product in stock ERROR HERE WHEN in-stock(bogus)
-  Creates duty-to-pay(buyer, webshop, product, time-in-minutes+30) When in-stock(1)
+  Holds when in-stock // Webshop must have the product in stock ERROR HERE WHEN in-stock(bogus)
+  Creates duty-to-pay(buyer, webshop, product, time-in-minutes+30) When in-stock
 
 Fact day Identified by Int
 Placeholder current-day For day
@@ -25,7 +27,7 @@ Act pay-order
   Recipient webshop
   Related to product
   Holds when duty-to-pay
-  Terminates duty-to-pay When duty-to-pay.buyer == buyer
+  Terminates duty-to-pay When duty-to-pay.buyer == buyer // post condition
                            && duty-to-pay.webshop == webshop
                            && duty-to-pay.product == product
   Creates duty-to-send(webshop, buyer, product, day+7)
@@ -68,14 +70,13 @@ Duty duty-to-pay
 // Alice orders a sweater.
 
 // Scenario 1: Alice tries to buy a sweater from VD that is not in stock.
-+in-stock(0).                                         // the Sweater is not in stock
+-in-stock().                                         // the Sweater is not in stock
 order-product(Alice, VD, Sweater).                    // the product cannot be ordered as it is not in stock
 ?!duty-to-pay(Alice, VD, Sweater, 30).                // the buyer does not have a duty to pay, as the product
                                                       // cannot be ordered
 
 // Scenario 2: Alice buys a product, but doesn't pay in time.
--in-stock(0).                                         // uncomment if running together with scenario 1
-+in-stock(1).
++in-stock().
 
 order-product(Alice, VD, Sweater).                    // the product is ordered
 ?duty-to-pay(Alice, VD, Sweater, 30).                 // Alice now has a duty to pay the order she made
@@ -92,7 +93,7 @@ order-product(Alice, VD, Sweater).                    // the product is ordered
 // Scenario 3: Alice buys a product from VD.
 -time-in-minutes(31).                                 // uncomment if running together with scenario 2
 +time-in-minutes(0).                                  // uncomment if running together with scenario 2
-// +in-stock(1).                                      // comment if running together with scenario 2
+// +in-stock().                                      // comment if running together with scenario 2
 
 order-product(Alice, VD, Sweater).                    // Alice orders a product, which creates a duty to pay
 ?duty-to-pay(Alice, VD, Sweater, 30).                 // for her to the webshop.
@@ -112,7 +113,7 @@ send-product(VD, Alice, Sweater).                     // the webshop sends the s
 // Scenario 4: Alice buys a product, but VD fails to send.
 -day(1).                                              // uncomment if running together with scenario 3
 +day(0).                                              // uncomment if running together with scenario 3
-// +in-stock(1).                                      // comment if running together with scenario 3
+// +in-stock().                                      // comment if running together with scenario 3
 
 order-product(Alice, VD, Sweater).
 ?duty-to-pay(Alice, VD, Sweater, 30).                 // the product is ordered and Alice now has a duty to pay

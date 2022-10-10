@@ -26,7 +26,7 @@ time-in-minutes(0) = True
 +in-stock(0).                                         // #5 the Sweater is not in stock
 order-product(Alice, VD, Sweater).                    // #6 the product cannot be ordered as it is not in stock
 ?!duty-to-pay                                         // #7 the buyer does not have a duty to pay, as the product
-                                                      // cannot be ordered
+                                                      // cannot be ordered semantiek > computational
 
 // Trace
 #3 > :jump 4
