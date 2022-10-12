@@ -49,8 +49,23 @@ case class Max(vars: List[String], t: Term) extends Term
 case class Min(vars: List[String], t: Term) extends Term
 
 object Explain {
+  /*
+    Enter phrase (for now, only consider queries concerning whether duties exist). If the duty exists in the knowledge
+    base, search in the trace at what step it was created and by what act and incorporate that in the end result. Using
+    the spec, list conditions (search specifically for the holds when keyword in the spec). Search for this condition in
+    the knowledge base, then determine again in the trace where it is attributed a value. Use these pieces for now to give
+    an explanation.
+
+    example result:
+    #7 > ?Duty-to-pay(Alice, VD, Sweater, 30)
+    query successful:
+      Act order-product creates Duty duty-to-send when in-stock is True and when time-in-minutes < 30.
+      At #6 order-product(Alice, VD, Sweater)
+      At #5 +in-stock()
+      At #4 +time-in-minutes(0)
+  */
   def explain(p: Phrase, s: List[Spec], Trace: List[String], KnowledgeBase: List[Term]): List[Any] = p match {
-    case _ => throw new NotImplementedException("TODO")
+    case query(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
   }
 
   def prettify(res: List[Any]): String = res match {
