@@ -1,0 +1,25 @@
+Fact person Identified by String // natural persons
+
+Placeholder parent for person
+Placeholder child for person
+
+Fact legal-parent Identified by parent * child
+    Holds when adoptive-parent(parent, child)
+            || natural-parent (parent, child)
+
+Fact natural-parent Identified by parent * child
+Fact adoptive-parent Identified by parent * child
+
+Fact adoption-agent
+
+Act sign-adoption-papers
+    Actor adoption-agent
+    Recipient parent
+    Related to child
+    Creates adoptive-parent(parent, child)
+    Holds when True
+.
+
++person(Alice).
++person(Bob).
+sign-adoption-papers (David, Alice, Bob).
