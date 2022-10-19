@@ -1,7 +1,7 @@
 Fact person Identified by String // natural persons
 
-Placeholder parent for person
-Placeholder child for person
+Placeholder parent For person
+Placeholder child For person
 
 Fact legal-parent Identified by parent * child
     Holds when adoptive-parent(parent, child)
