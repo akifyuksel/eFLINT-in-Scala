@@ -1,4 +1,22 @@
 class NotImplementedException(s: String) extends RuntimeException(s)
+class ParseException(s: String) extends RuntimeException(s)
+class ReadException(s: String) extends ParseException(s)
+class InterpretException(s: String) extends RuntimeException(s)
+class ExplainException(s: String) extends RuntimeException(s)
+
+//SExpr - Symbolic expression.
+abstract class SExpr
+case class SNum(n: Int) extends SExpr
+case class SSym(s:String) extends SExpr
+case class SList(list: List[SExpr]) extends SExpr
+
+abstract class AST
+
+
+abstract class Value
+case class Binding(name: String, value: Value)
+case class NumV(i:Int) extends Value
+case class BoolV(b:Boolean) extends Value
 
 sealed abstract class Phrase
 case class trigger(vars: List[String], t: Term) extends Phrase
@@ -9,7 +27,7 @@ case class instQuery(vars: List[String], t: Term) extends Phrase
 case class Seq(p1: Phrase, p2: Phrase) extends Phrase
 
 sealed abstract class Spec
-case class Duty(name: String) extends Spec
+case class Duty(name: String, identifiedBy: String, derivedFrom: String = "") extends Spec
 case class Fact(name: String) extends Spec
 case class Act(name: String) extends Spec
 case class BoolLiteral(name:String, b: Boolean) extends Spec
@@ -48,6 +66,33 @@ case class Sum(vars: List[String], t: Term) extends Term
 case class Max(vars: List[String], t: Term) extends Term
 case class Min(vars: List[String], t: Term) extends Term
 
+
+object parse {
+  def parse(str: String): AST = parse(read(str))
+
+  def read(str:String): SExpr = str match {
+
+
+    case _ => throw new ReadException("cannot read " + str)
+  }
+
+  def parse(s: SExpr): AST = s match {
+
+
+    case _ => throw new ParseException("cannot parse " + s)
+  }
+}
+
+object interpret {
+  type Environment = List[Binding]
+
+  def interp(a: AST): Value = a match {
+
+
+    case _ => throw new InterpretException("cannot interpret " + a)
+  }
+}
+
 object Explain {
   /*
     Enter phrase (for now, only consider queries concerning whether duties exist). If the duty exists in the knowledge
@@ -66,9 +111,11 @@ object Explain {
   */
   def explain(p: Phrase, s: List[Spec], Trace: List[String], KnowledgeBase: List[Term]): List[Any] = p match {
     case query(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
+
+    case _ => throw new ExplainException("cannot explain" + p)
   }
 
-  def prettify(res: List[Any]): String = res match {
-    case _ => throw new NotImplementedException("TODO")
-  }
+  // def prettify(res: List[Any]): String = res match {
+  //   case _ => throw new NotImplementedException("TODO")
+  // }
 }
