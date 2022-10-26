@@ -1,4 +1,4 @@
-Fact person Identified by String // natural persons
+Fact person Identified by String
 
 Placeholder parent For person
 Placeholder child For person
@@ -23,3 +23,7 @@ Act sign-adoption-papers
 +person(Alice).
 +person(Bob).
 sign-adoption-papers (David, Alice, Bob).
+
+// explain why Alice becomes Bob's legal parent when she becomes his adoptive parent
+// e.g., Fact legal-parent Holds when adoptive parent or natural parent.
+//
