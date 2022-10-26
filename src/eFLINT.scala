@@ -1,5 +1,5 @@
 class NotImplementedException(s: String) extends RuntimeException(s)
-class ParseException(s: String) extends RuntimeException(s)
+//class ParseException(s: String) extends RuntimeException(s)
 //class ReadException(s: String) extends ParseException(s)
 class InterpretException(s: String) extends RuntimeException(s)
 class ExplainException(s: String) extends RuntimeException(s)
@@ -161,7 +161,7 @@ object AST {
 //    case SSym("True") => BoolLit(true)
 //    case SSym("False") => BoolLit(false)
 //    case SSym(x) if AST.keywords.contains(x) => throw new ParseException(x +  " cannot be used as an identifier")
-//    case SSym(x) => Var(x, "TODO: idk what to put here")
+//    case SSym(x) => Var(x, "idk what to put here")
 //    case SList(a1 :: SSym(binop) :: a2 :: Nil) =>
 //      val l = parse(a1)
 //      val r = parse(a2)
@@ -229,7 +229,7 @@ object Explain {
       At #4 +time-in-minutes(0)
   */
   def explain(p: Phrase, s: List[Spec], Trace: List[String], KnowledgeBase: List[Term]): List[Any] = p match {
-    case query(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
+    case Query(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
 
     case _ => throw new ExplainException("cannot explain" + p)
   }
