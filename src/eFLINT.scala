@@ -39,10 +39,9 @@ case class Act(a: ActSpec) extends Kind
 case class Duty(d: DutySpec) extends Kind
 case class Event(e: EventSpec) extends Kind
 
-case class Restriction(v: Var) extends AST
-//abstract class Restriction extends AST
-//case class VarRestriction(v: Var) extends Restriction
-//case class FunctionRestriction(f: ) extends Restriction
+abstract class Restriction extends AST
+case class VarRestriction() extends Restriction
+case class FunctionRestriction() extends Restriction
 
 abstract class Derivation extends AST
 case class Dv(vars: List[Var], t: Term) extends Derivation
@@ -64,15 +63,17 @@ case class Sync(vars: List[Var], t:Term) extends AST
 
 type Initializer = List[Effect]
 
-//case class Statement = trans monad??
+abstract class Statement extends AST
+case class Trans(vars: Var, ty: Either[Term, (DomId, Arguments)]) extends Statement
+case class Query(t:Term) extends Statement
 
-//abstract class TransType
-//case class Trigger() extends TransType
-//case class AddEvent() extends TransType
-//case class RemEvent() extends TransType
-//case class ObfEvent() extends TransType
+abstract class TransType extends AST
+case class Trigger() extends TransType
+case class AddEvent() extends TransType
+case class RemEvent() extends TransType
+case class ObfEvent() extends TransType
 
-//type Scenario = List[Statement]
+type Scenario = List[Statement]
 
 abstract class Phrase extends AST
 case class PDo(t: Tagged) extends Phrase
@@ -80,7 +81,7 @@ case class PTrigger(vars: List[Var], t: Term) extends Phrase
 case class Create(vars: List[Var], t: Term) extends Phrase
 case class Terminate(vars: List[Var], t: Term) extends Phrase
 case class Obfuscate(vars:List[Var], t: Term) extends Phrase
-case class Query(t: Term) extends Phrase
+case class PQuery(t: Term) extends Phrase
 case class PInstQuery(vars: List[Var], t: Term) extends Phrase
 case class PDeclBlock(decls: List[Decl]) extends Phrase
 case class PSkip() extends Phrase
@@ -229,7 +230,7 @@ object Explain {
       At #4 +time-in-minutes(0)
   */
   def explain(p: Phrase, s: List[Spec], Trace: List[String], KnowledgeBase: List[Term]): List[Any] = p match {
-    case Query(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
+    case PQuery(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
 
     case _ => throw new ExplainException("cannot explain" + p)
   }
