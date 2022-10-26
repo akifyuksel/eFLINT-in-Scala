@@ -205,8 +205,6 @@ object parse {
 }
 
 object interpret {
-  type Environment = List[Binding]
-
   def interp(a: AST): Value = a match {
 
 
