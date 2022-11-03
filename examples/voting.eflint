@@ -61,4 +61,5 @@ cast-vote(Bob, Admin, David).
 cast-vote(Chloe, Admin, Eve).
 ?!Enabled(declare-winner(candidate=David)).
 ?Enabled(declare-winner(candidate=Eve)).
+?vote-concluded().
 declare-winner(candidate=Eve).
