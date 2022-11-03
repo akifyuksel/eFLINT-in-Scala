@@ -221,6 +221,8 @@ object Explain {
     the knowledge base, then determine again in the trace where it is attributed a value. Use these pieces for now to give
     an explanation.
 
+    is the knowledge from the eflint interpreter currently enough?
+
     example result:
     #7 > ?Duty-to-pay(Alice, VD, Sweater, 30)
     query successful:
