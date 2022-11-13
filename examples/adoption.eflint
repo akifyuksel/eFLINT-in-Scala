@@ -10,19 +10,37 @@ Fact legal-parent Identified by parent * child
 Fact natural-parent Identified by parent * child
 Fact adoptive-parent Identified by parent * child
 
-Fact adoption-agent
+Fact is-adopted Identified by child
 
+Fact adoptions Identified by Int
+    Derived from Count(Foreach child : child When Holds is-adopted(child))
+
+Fact adoption-agent
+Fact doctor
+
+// TODO: only make this work if age difference between parent and child is >=18
 Act sign-adoption-papers
     Actor adoption-agent
     Recipient parent
     Related to child
-    Creates adoptive-parent(parent, child)
+    Creates adoptive-parent(parent, child), is-adopted(child)
+    Holds when True
+
+Act childbirth
+    Actor doctor
+    Recipient parent
+    Related to child
+    Creates child, natural-parent(parent, child)
     Holds when True
 .
 
-+person(Alice).
-+person(Bob).
-sign-adoption-papers (David, Alice, Bob).
++person(Alice). +person(Bob).
+sign-adoption-papers (Eve, Alice, Bob).
++person(Chloe).
+childbirth(Frank, Chloe, David).
+?is-adopted(Bob).
+?is-adopted(David)
+
 
 // explain why Alice becomes Bob's legal parent when she becomes his adoptive parent
 // e.g., Fact legal-parent Holds when adoptive parent or natural parent.
