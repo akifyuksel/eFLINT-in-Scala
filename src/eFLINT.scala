@@ -1,3 +1,5 @@
+import scala.collection.immutable.List
+
 class NotImplementedException(s: String) extends RuntimeException(s)
 //class ParseException(s: String) extends RuntimeException(s)
 //class ReadException(s: String) extends ParseException(s)
@@ -47,25 +49,28 @@ abstract class Derivation extends AST
 case class Dv(vars: List[Var], t: Term) extends Derivation
 case class HoldsWhen(t: Term) extends Derivation
 
-case class TypeSpec(kind: Kind, domain: Domain, domain_constraint: Term, restriction: /*Maybe */ Restriction, derivation: List[Derivation], closed: Boolean, conditions: List[Term]) extends AST
-case class DutySpec(enforcingActs: List[DomId], terminatingActs: List[DomId], creatingActs: List[DomId], violatedWhen: List[Term]) extends AST
+case class TypeSpec(kind: Kind, domain: Domain, domain_constraint: Term,
+                    restriction: /*Maybe */ Restriction, derivation: List[Derivation],
+                    closed: Boolean, conditions: List[Term]) extends AST
+case class DutySpec(enforcingActs: List[DomId], terminatingActs: List[DomId],
+                    creatingActs: List[DomId], violatedWhen: List[Term]) extends AST
 case class FactSpec(invariant: Boolean, actor: Boolean) extends AST
 case class ActSpec(effects: List[Effect], syncs: List[Sync], physical: Boolean) extends AST
 case class EventSpec(event_effects: List[Effect], event_syncs: List[Sync]) extends AST
 case class Spec(decls: Set[(DomId, TypeSpec)], aliases: Set[(DomId, DomId)]) extends AST
 
 abstract class Effect extends AST
-case class CAll(vars: List[Var], t:Term) extends Effect
-case class TAll(vars: List[Var], t:Term) extends Effect
-case class OAll(vars: List[Var], t:Term) extends Effect
+case class CAll(vars: List[Var], t: Term) extends Effect
+case class TAll(vars: List[Var], t: Term) extends Effect
+case class OAll(vars: List[Var], t: Term) extends Effect
 
-case class Sync(vars: List[Var], t:Term) extends AST
+case class Sync(vars: List[Var], t: Term) extends AST
 
 type Initializer = List[Effect]
 
 abstract class Statement extends AST
 case class Trans(vars: Var, ty: Either[Term, (DomId, Arguments)]) extends Statement
-case class Query(t:Term) extends Statement
+case class Query(t: Term) extends Statement
 
 abstract class TransType extends AST
 case class Trigger() extends TransType
@@ -80,7 +85,7 @@ case class PDo(t: Tagged) extends Phrase
 case class PTrigger(vars: List[Var], t: Term) extends Phrase
 case class Create(vars: List[Var], t: Term) extends Phrase
 case class Terminate(vars: List[Var], t: Term) extends Phrase
-case class Obfuscate(vars:List[Var], t: Term) extends Phrase
+case class Obfuscate(vars: List[Var], t: Term) extends Phrase
 case class PQuery(t: Term) extends Phrase
 case class PInstQuery(vars: List[Var], t: Term) extends Phrase
 case class PDeclBlock(decls: List[Decl]) extends Phrase
@@ -88,25 +93,25 @@ case class PSkip() extends Phrase
 //case class Seq(p1: Phrase, p2: Phrase) extends Phrase
 
 abstract class Decl extends AST
-case class TypeDecl(d:DomId, ts:TypeSpec) extends Decl
-case class TypeExt(d:DomId, mc:List[ModClause]) extends Decl
-case class PlaceholderDecl(d1:DomId, d2:DomId) extends Decl
+case class TypeDecl(d: DomId, ts: TypeSpec) extends Decl
+case class TypeExt(d: DomId, mc: List[ModClause]) extends Decl
+case class PlaceholderDecl(d1: DomId, d2: DomId) extends Decl
 
 abstract class ModClause extends AST
-case class ConditionedByCl(ts:List[Term]) extends ModClause
-case class DerivationCl(ts:List[Term]) extends ModClause
-case class PostCondCl(ts:List[Term]) extends ModClause
-case class SyncCl(ts:List[Term]) extends ModClause
-case class ViolationCl(ts:List[Term]) extends ModClause
-case class EnforcingActsCl(ts:List[Term]) extends ModClause
-case class TerminatedByCl(ts:List[Term]) extends ModClause
-case class CreatedByCl(ts:List[Term]) extends ModClause
+case class ConditionedByCl(ts: List[Term]) extends ModClause
+case class DerivationCl(ts: List[Term]) extends ModClause
+case class PostCondCl(ts: List[Term]) extends ModClause
+case class SyncCl(ts: List[Term]) extends ModClause
+case class ViolationCl(ts: List[Term]) extends ModClause
+case class EnforcingActsCl(ts: List[Term]) extends ModClause
+case class TerminatedByCl(ts: List[Term]) extends ModClause
+case class CreatedByCl(ts: List[Term]) extends ModClause
 
 type Subs = List[(Var, Tagged)]
 
 abstract class Term extends AST
 case class Not(t: Term) extends Term
-case class Present(t:Term) extends Term
+case class Present(t: Term) extends Term
 case class Violated(t: Term) extends Term
 case class Enabled(t: Term) extends Term
 case class BoolLit(b: Boolean) extends Term
@@ -135,8 +140,8 @@ case class Max(vars: List[String], t: Term) extends Term
 case class Min(vars: List[String], t: Term) extends Term
 
 abstract class Value
-case class ResNum(i:Int) extends Value
-case class ResBool(b:Boolean) extends Value
+case class ResNum(i: Int) extends Value
+case class ResBool(b: Boolean) extends Value
 case class ResString(s: String) extends Value
 case class ResTagged(t: Tagged) extends Value
 
@@ -147,13 +152,15 @@ case class TyBool() extends Type
 case class TyTagged(t:Tagged) extends Type
 
 object AST {
-  val keywords: Set[String] = Set("!?", "||", "&&", "<=", ">=", "..", "True", "False", "Sum", "==", "!=", "When", "Where", "Holds when", "Holds", "Present",
-                     "Present when", "Max", "Min", "Count", "Union", "Enabled", "Violated when", "Violated", "Atom", "String", "Int", "Time",
-                     "Current Time", "Exists", "Forall", "Foreach", "Force", "Extend", "Event", "Act", "Fact", "Physical", "Bool", "Var",
-                     "Function", "Invariant", "Predicate", "Duty", "Actor", "Holder", "Claimant", "Recipient", "Related to", "Conditioned by",
-                     "Creates", "Terminates", "Obfuscates", "Terminated by", "Created by", "With", "Identified by", "Derived from",
-                     "Derived externally", "Enforced by"  , "Syncs with", "Do"  , "Placeholder", "For", "Not", "Open", "Closed", "?-", "#", "##",
-                     "###", "####", "#include", "#require")
+  val keywords: Set[String] = Set("!?", "||", "&&", "<=", ">=", "..", "True", "False", "Sum", "==", "!=", "When",
+                     "Where", "Holds when", "Holds", "Present", "Present when", "Max", "Min", "Count", "Union",
+                     "Enabled", "Violated when", "Violated", "Atom", "String", "Int", "Time", "Current Time", "Exists",
+                     "Forall", "Foreach", "Force", "Extend", "Event", "Act", "Fact", "Physical", "Bool", "Var",
+                     "Function", "Invariant", "Predicate", "Duty", "Actor", "Holder", "Claimant", "Recipient",
+                     "Related to", "Conditioned by", "Creates", "Terminates", "Obfuscates", "Terminated by",
+                     "Created by", "With", "Identified by", "Derived from", "Derived externally", "Enforced by",
+                     "Syncs with", "Do"  , "Placeholder", "For", "Not", "Open", "Closed", "?-", "#", "##", "###",
+                     "####", "#include", "#require")
 }
 
 //object parse {
@@ -207,6 +214,108 @@ object AST {
 
 object interpret {
   def interp(a: AST): Value = a match {
+    case Var(dom, s) => throw new NotImplementedException("not yet implemented")
+
+    case Str(s) => throw new NotImplementedException("not yet implemented")
+    case Integer(n) => throw new NotImplementedException("not yet implemented")
+    case Product(taggeds) => throw new NotImplementedException("not yet implemented")
+
+    case AnyString() => throw new NotImplementedException("not yet implemented") 
+    case AnyInt() => throw new NotImplementedException("not yet implemented") 
+    case Strings(strings) => throw new NotImplementedException("not yet implemented") 
+    case Ints(ints) => throw new NotImplementedException("not yet implemented") 
+    case Products(vars) => throw new NotImplementedException("not yet implemented") 
+    case Time () => throw new NotImplementedException("not yet implemented") 
+
+    case Rename (v, t) => throw new NotImplementedException("not yet implemented") 
+
+    case Fact (f) => throw new NotImplementedException("not yet implemented") 
+    case Act (a) => throw new NotImplementedException("not yet implemented") 
+    case Duty (d) => throw new NotImplementedException("not yet implemented") 
+    case Event (e) => throw new NotImplementedException("not yet implemented") 
+
+    case VarRestriction () => throw new NotImplementedException("not yet implemented") 
+    case FunctionRestriction () => throw new NotImplementedException("not yet implemented") 
+
+    case Dv (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case HoldsWhen (t) => throw new NotImplementedException("not yet implemented") 
+
+    case TypeSpec (kind, domain, domain_constraint, restriction, derivation, closed, conditions) 
+                      => throw new NotImplementedException("not yet implemented") 
+    case DutySpec (enforcingActs, terminatingActs, creatingActs, violatedWhen)
+                      => throw new NotImplementedException("not yet implemented") 
+    case FactSpec (invariant, actor) => throw new NotImplementedException("not yet implemented") 
+    case ActSpec (effects, syncs, physical) => throw new NotImplementedException("not yet implemented") 
+    case EventSpec (event_effects, event_syncs) => throw new NotImplementedException("not yet implemented") 
+    case Spec (decls, aliases) => throw new NotImplementedException("not yet implemented") 
+
+    case CAll (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case TAll (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case OAll (vars, t) => throw new NotImplementedException("not yet implemented") 
+
+    case Sync (vars, t) => throw new NotImplementedException("not yet implemented") 
+
+
+    case Trans (vars, ty) => throw new NotImplementedException("not yet implemented") 
+    case Query (t) => throw new NotImplementedException("not yet implemented") 
+
+    case Trigger () => throw new NotImplementedException("not yet implemented") 
+    case AddEvent () => throw new NotImplementedException("not yet implemented") 
+    case RemEvent () => throw new NotImplementedException("not yet implemented") 
+    case ObfEvent () => throw new NotImplementedException("not yet implemented") 
+
+    case PDo (t) => throw new NotImplementedException("not yet implemented") 
+    case PTrigger (vars, t) => throw new NotImplementedException("not yet implemented")  
+    case Create (vars, t) => throw new NotImplementedException("not yet implemented")  
+    case Terminate (vars, t) => throw new NotImplementedException("not yet implemented")  
+    case Obfuscate (vars, t) => throw new NotImplementedException("not yet implemented")  
+    case PQuery (t) => throw new NotImplementedException("not yet implemented")  
+    case PInstQuery (vars, t) => throw new NotImplementedException("not yet implemented")  
+    case PDeclBlock (decls) => throw new NotImplementedException("not yet implemented")  
+    case PSkip () => throw new NotImplementedException("not yet implemented")  
+    //case Seq(p1: Phrase, p2: Phrase) => throw new NotImplementedException("not yet implemented")  extends Phrase
+
+    case TypeDecl (d, ts) => throw new NotImplementedException("not yet implemented")  
+    case TypeExt (d, mc) => throw new NotImplementedException("not yet implemented")  
+    case PlaceholderDecl (d1, d2) => throw new NotImplementedException("not yet implemented")  
+
+    case ConditionedByCl (ts) => throw new NotImplementedException("not yet implemented") 
+    case DerivationCl (ts) => throw new NotImplementedException("not yet implemented")  
+    case PostCondCl (ts) => throw new NotImplementedException("not yet implemented")  
+    case SyncCl (ts) => throw new NotImplementedException("not yet implemented")  
+    case ViolationCl (ts) => throw new NotImplementedException("not yet implemented")  
+    case EnforcingActsCl (ts) => throw new NotImplementedException("not yet implemented") 
+    case TerminatedByCl (ts) => throw new NotImplementedException("not yet implemented")  
+    case CreatedByCl (ts) => throw new NotImplementedException("not yet implemented")  
+
+    case Not (t) => throw new NotImplementedException("not yet implemented") 
+    case Present (t) => throw new NotImplementedException("not yet implemented") 
+    case Violated (t) => throw new NotImplementedException("not yet implemented") 
+    case Enabled (t) => throw new NotImplementedException("not yet implemented") 
+    case BoolLit (b) => throw new NotImplementedException("not yet implemented") 
+    case StringLit (s) => throw new NotImplementedException("not yet implemented") 
+    case IntLit (n) => throw new NotImplementedException("not yet implemented") 
+    case Project (t, v) => throw new NotImplementedException("not yet implemented") 
+    case And (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Or (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Leq (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Geq (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case G (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case L (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Eq (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Neq (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case When (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Sub (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Add (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Mult (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Mod (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Div (t1, t2) => throw new NotImplementedException("not yet implemented") 
+    case Exists (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case Forall (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case Count (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case Sum (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case Max (vars, t) => throw new NotImplementedException("not yet implemented") 
+    case Min (vars, t) => throw new NotImplementedException("not yet implemented") 
 
 
     case _ => throw new InterpretException("cannot interpret " + a)
@@ -232,7 +341,7 @@ object Explain {
       At #4 +time-in-minutes(0)
   */
   def explain(p: Phrase, s: List[Spec], Trace: List[String], KnowledgeBase: List[Term]): List[Any] = p match {
-    case PQuery(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("TODO")
+    case PQuery(term) if KnowledgeBase.contains(term) => throw new NotImplementedException("not yet implemented")
 
     case _ => throw new ExplainException("cannot explain" + p)
   }
