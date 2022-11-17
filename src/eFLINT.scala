@@ -380,9 +380,9 @@ object Explain {
   /*
     Enter phrase (for now, only consider queries concerning whether duties exist). If the duty exists in the knowledge
     base, search in the trace at what step it was created and by what act and incorporate that in the end result. Using
-    the spec, list conditions (search specifically for the holds when keyword in the spec). Search for this condition in
-    the knowledge base, then determine again in the trace where it is attributed a value. Use these pieces for now to give
-    an explanation.
+    the spec, list conditions (search specifically for the holds when keyword in the spec). Search for this condition
+    in the knowledge base, then determine again in the trace where it is attributed a value. Use these pieces for now
+    to give an explanation.
 
     is the knowledge from the eflint interpreter currently enough?
 
