@@ -3,17 +3,19 @@ import Types.{Arguments, DomId, Tagged}
 trait AST
 case class Var(dom: DomId, s: String) extends AST
 case class Sync(vars: List[Var], t: Term) extends AST
+case class Seq(a1: AST, a2: AST) extends AST
 
 object AST {
   val keywords: Set[String] = Set("!?", "||", "&&", "<=", ">=", "..", "True", "False", "Sum", "==", "!=", "When",
-    "Where", "Holds when", "Holds", "Present", "Present when", "Max", "Min", "Count", "Union",
-    "Enabled", "Violated when", "Violated", "Atom", "String", "Int", "Time", "Current Time", "Exists",
-    "Forall", "Foreach", "Force", "Extend", "Event", "Act", "Fact", "Physical", "Bool", "Var",
-    "Function", "Invariant", "Predicate", "Duty", "Actor", "Holder", "Claimant", "Recipient",
-    "Related to", "Conditioned by", "Creates", "Terminates", "Obfuscates", "Terminated by",
-    "Created by", "With", "Identified by", "Derived from", "Derived externally", "Enforced by",
-    "Syncs with", "Do"  , "Placeholder", "For", "Not", "Open", "Closed", "?-", "#", "##", "###",
-    "####", "#include", "#require")
+    "Where", "Holds when", "Holds", "Present", "Present when", "Max", "Min", "Count", "Union", "Enabled", "Placeholder",
+    "Violated when", "Violated", "Atom", "String", "Int", "Time", "Current Time", "Exists", "Forall", "Foreach",
+    "Force", "Extend", "Event", "Act", "Fact", "Physical", "Bool", "Var", "Function", "Invariant", "Predicate", "Duty",
+    "Actor", "Holder", "Claimant", "Recipient", "Related to", "Conditioned by", "Creates", "Terminates", "Obfuscates",
+    "Terminated by", "Created by", "With", "Identified by", "Derived from", "Derived externally", "Enforced by",
+    "Syncs with", "Do", "For", "Not", "Open", "Closed", "?-", "#", "##", "###", "####", "#include", "#require")
+
+  val keychars: Set[Char] = Set('[', ']', '(', ')', '!', ',', '\'', '+', '-', '*', '/', '.', '=', '>', '<', ':', '?',
+    '{', '}', '%', '~')
 }
 
 abstract class Elem extends AST
