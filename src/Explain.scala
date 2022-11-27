@@ -28,7 +28,7 @@ object Explain {
     case PInstQuery(vars, t) => throw new NotImplementedException("not yet implemented")
     case PDeclBlock(decls) => throw new NotImplementedException("not yet implemented")
     case PSkip() => throw new NotImplementedException("not yet implemented")
-    //case Seq(p1, p2) => throw new NotImplementedException("not yet implemented")
+    case PSeq(p1, p2) => throw new NotImplementedException("not yet implemented")
 
     case _ => throw new ExplainException("cannot explain" + p)
   }

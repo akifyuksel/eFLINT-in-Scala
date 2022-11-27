@@ -83,7 +83,7 @@ case class PQuery(t: Term) extends Phrase
 case class PInstQuery(vars: List[Var], t: Term) extends Phrase
 case class PDeclBlock(decls: List[Decl]) extends Phrase
 case class PSkip() extends Phrase
-//case class Seq(p1: Phrase, p2: Phrase) extends Phrase
+case class PSeq(p1: Phrase, p2: Phrase) extends Phrase
 
 abstract class Decl extends AST
 case class TypeDecl(d: DomId, ts: TypeSpec) extends Decl
@@ -101,14 +101,18 @@ case class TerminatedByCl(ts: List[Term]) extends ModClause
 case class CreatedByCl(ts: List[Term]) extends ModClause
 
 abstract class Term extends AST
+case class CurrentTime() extends Term
+case class Ref(v: Var) extends Term
 case class Not(t: Term) extends Term
 case class Present(t: Term) extends Term
 case class Violated(t: Term) extends Term
 case class Enabled(t: Term) extends Term
+case class Untag(t: Term) extends Term
 case class BoolLit(b: Boolean) extends Term
 case class StringLit(s: String) extends Term
 case class IntLit(n: Int) extends Term
-case class Project(t: Term, v: String) extends Term
+case class Project(t: Term, v: Var) extends Term
+case class Tag(t: Term, v: Var) extends Term
 case class And(t1: Term, t2: Term) extends Term
 case class Or(t1: Term, t2: Term) extends Term
 case class Leq(t1: Term, t2: Term) extends Term
@@ -123,12 +127,13 @@ case class Add(t1: Term, t2: Term) extends Term
 case class Mult(t1: Term, t2: Term) extends Term
 case class Mod(t1: Term, t2: Term) extends Term
 case class Div(t1: Term, t2: Term) extends Term
-case class Exists(vars: List[String], t: Term) extends Term
-case class Forall(vars: List[String], t: Term) extends Term
-case class Count(vars: List[String], t: Term) extends Term
-case class Sum(vars: List[String], t: Term) extends Term
-case class Max(vars: List[String], t: Term) extends Term
-case class Min(vars: List[String], t: Term) extends Term
+case class Exists(vars: List[Var], t: Term) extends Term
+case class Forall(vars: List[Var], t: Term) extends Term
+case class Count(vars: List[Var], t: Term) extends Term
+case class Sum(vars: List[Var], t: Term) extends Term
+case class Max(vars: List[Var], t: Term) extends Term
+case class Min(vars: List[Var], t: Term) extends Term
+case class App(d: DomId, args: Arguments) extends Term
 
 abstract class Value
 case class ResNum(i: Int) extends Value

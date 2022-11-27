@@ -3,6 +3,11 @@ class NotImplementedException(s: String) extends RuntimeException(s)
 object Interp {
   type Store = List[Var]
 
+  def is_in_virtual_state(rt: ResTagged): Value = rt match {
+    case ResTagged(tag) => throw new NotImplementedException("not yet implemented")
+    case _ => ResBool(false)
+  }
+
   def interp(a: AST, st: Store): (Value, AST, Store) = a match {
     case Str(s) => throw new NotImplementedException("not yet implemented")
     case Integer(n) => throw new NotImplementedException("not yet implemented")
@@ -65,7 +70,7 @@ object Interp {
     case PInstQuery(vars, t) => throw new NotImplementedException("not yet implemented")
     case PDeclBlock(decls) => throw new NotImplementedException("not yet implemented")
     case PSkip() => throw new NotImplementedException("not yet implemented")
-    //case Seq(p1, p2) => throw new NotImplementedException("not yet implemented")
+    case PSeq(p1, p2) => throw new NotImplementedException("not yet implemented")
 
     case TypeDecl(d, ts) => throw new NotImplementedException("not yet implemented")
     case TypeExt(d, mc) => throw new NotImplementedException("not yet implemented")
@@ -83,7 +88,11 @@ object Interp {
       case (ResBool(false), a1, st1) => (ResBool(true), Seq(a, a1), st1)
       case (ResBool(true), a1, st1) => (ResBool(false), Seq(a, a1), st1)
     }
-    case Present(t) => throw new NotImplementedException("not yet implemented")
+    // TODO
+    case Present(t) => interp(t) match {
+      case (rt @ ResTagged(tag), a1, st1) => (is_in_virtual_state(rt), a1, st1)
+      case _ => (ResBool(false), a, st)
+    }
     case Violated(t) => throw new NotImplementedException("not yet implemented")
     case Enabled(t) => throw new NotImplementedException("not yet implemented")
     case BoolLit(b) => (ResBool(b), a, st)
@@ -160,7 +169,11 @@ object Interp {
       val (ResNum(right), a2, st2) = interp(t2, st1)
       (ResNum(left / right), Seq(a, Seq(a1, a2)), st2)
     }
-    case Exists(vars, t) => throw new NotImplementedException("not yet implemented")
+    // TODO
+    case Exists(vars, t) => vars match {
+      case Nil => (ResBool(false), a, st)
+      case x :: xs => throw new NotImplementedException("not yet implemented")
+    }
     case Forall(vars, t) => throw new NotImplementedException("not yet implemented")
     case Count(vars, t) => throw new NotImplementedException("not yet implemented")
     case Sum(vars, t) => throw new NotImplementedException("not yet implemented")
