@@ -56,7 +56,7 @@ case class DutySpec(enforcingActs: List[DomId], terminatingActs: List[DomId],
 case class FactSpec(invariant: Boolean, actor: Boolean) extends AST
 case class ActSpec(effects: List[Effect], syncs: List[Sync], physical: Boolean) extends AST
 case class EventSpec(event_effects: List[Effect], event_syncs: List[Sync]) extends AST
-case class Spec(decls: Set[(DomId, TypeSpec)], aliases: Set[(DomId, DomId)]) extends AST
+case class Spec(decls: Map[DomId, TypeSpec], aliases: Map[DomId, DomId]) extends AST
 
 abstract class Effect extends AST
 case class CAll(vars: List[Var], t: Term) extends Effect
@@ -90,6 +90,11 @@ case class TypeDecl(d: DomId, ts: TypeSpec) extends Decl
 case class TypeExt(d: DomId, mc: List[ModClause]) extends Decl
 case class PlaceholderDecl(d1: DomId, d2: DomId) extends Decl
 
+abstract class CDecl extends AST
+case class CTypeDecl(d: DomId, ts: TypeSpec) extends CDecl
+case class CTypeExt(d: DomId, mc: List[ModClause]) extends CDecl
+case class CPlaceholderDecl(d1: DomId, d2: DomId) extends CDecl
+
 abstract class ModClause extends AST
 case class ConditionedByCl(ts: List[Term]) extends ModClause
 case class DerivationCl(ts: List[Term]) extends ModClause
@@ -99,6 +104,16 @@ case class ViolationCl(ts: List[Term]) extends ModClause
 case class EnforcingActsCl(ts: List[Term]) extends ModClause
 case class TerminatedByCl(ts: List[Term]) extends ModClause
 case class CreatedByCl(ts: List[Term]) extends ModClause
+
+abstract class CModClause extends AST
+case class CConditionedByCl(ts: List[Term]) extends CModClause
+case class CDerivationCl(ts: List[Term]) extends CModClause
+case class CPostCondCl(ts: List[Term]) extends CModClause
+case class CSyncCl(ts: List[Term]) extends CModClause
+case class CViolationCl(ts: List[Term]) extends CModClause
+case class CEnforcingActsCl(ts: List[Term]) extends CModClause
+case class CTerminatedByCl(ts: List[Term]) extends CModClause
+case class CCreatedByCl(ts: List[Term]) extends CModClause
 
 abstract class Term extends AST
 case class CurrentTime() extends Term

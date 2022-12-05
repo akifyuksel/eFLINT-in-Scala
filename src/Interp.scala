@@ -42,7 +42,12 @@ object Interp {
     case DutySpec(enforcingActs, terminatingActs, creatingActs, violatedWhen)
     => throw new NotImplementedException("not yet implemented")
     case FactSpec(invariant, actor) => (ResString("factspec " + invariant + " " + actor), a, st)
-    case ActSpec(effects, syncs, physical) => throw new NotImplementedException("not yet implemented")
+    case ActSpec(effects, syncs, physical) => (effects, syncs) match {
+      case (Nil, Nil) => throw new NotImplementedException("not yet implemented")
+      case (Nil, y :: ys) => throw new NotImplementedException("not yet implemented")
+      case (x :: xs, Nil) => throw new NotImplementedException("not yet implemented")
+      case (x :: xs, y :: ys) => throw new NotImplementedException("not yet implemented")
+    }
     case EventSpec(event_effects, event_syncs) => throw new NotImplementedException("not yet implemented")
     case Spec(decls, aliases) => throw new NotImplementedException("not yet implemented")
 
@@ -84,6 +89,9 @@ object Interp {
     case EnforcingActsCl(ts) => throw new NotImplementedException("not yet implemented")
     case TerminatedByCl(ts) => throw new NotImplementedException("not yet implemented")
     case CreatedByCl(ts) => throw new NotImplementedException("not yet implemented")
+
+    case CurrentTime() => throw new NotImplementedException("not yet implemented")
+    case Ref(v) => throw new NotImplementedException("not yet implemented")
     case Not(t) => interp(t, st) match {
       case (ResBool(false), a1, st1) => (ResBool(true), Seq(a, a1), st1)
       case (ResBool(true), a1, st1) => (ResBool(false), Seq(a, a1), st1)
@@ -95,9 +103,11 @@ object Interp {
     }
     case Violated(t) => throw new NotImplementedException("not yet implemented")
     case Enabled(t) => throw new NotImplementedException("not yet implemented")
+    case Untag(t) => throw new NotImplementedException("not yet implemented")
     case BoolLit(b) => (ResBool(b), a, st)
     case StringLit(s) => (ResString(s), a, st)
     case IntLit(n) => (ResNum(n), a, st)
+    case Tag(t, v) => throw new NotImplementedException("not yet implemented")
     case Project(t, v) => throw new NotImplementedException("not yet implemented")
     case And(t1, t2) => {
       val (ResBool(left), a1, st1) = interp(t1, st)
@@ -179,6 +189,8 @@ object Interp {
     case Sum(vars, t) => throw new NotImplementedException("not yet implemented")
     case Max(vars, t) => throw new NotImplementedException("not yet implemented")
     case Min(vars, t) => throw new NotImplementedException("not yet implemented")
+
+    case App(d, args) => throw new NotImplementedException("not yet implemented")
 
     case _ => throw new InterpException("cannot interpret " + a)
   }
