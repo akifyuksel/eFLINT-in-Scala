@@ -1,3 +1,6 @@
+import Types.DomId
+import Types.Tagged
+
 class EvalException(s: String) extends RuntimeException(s)
 class NotImplementedException(s: String) extends RuntimeException(s)
 object Eval {
@@ -95,17 +98,47 @@ object Eval {
       (ResNum(left / right), Seq(a, Seq(a1, a2)), st2)
     }
     // TODO
-    case Exists(vars, t) => vars match {
+    case Exists(vars, t)  => vars match {
+  case Nil => (ResBool (false), a, st)
+  case x :: xs => throw new NotImplementedException ("not yet implemented")
+  }
+    case Forall(vars, t) => vars match {
       case Nil => (ResBool(false), a, st)
       case x :: xs => throw new NotImplementedException("not yet implemented")
     }
-    case Forall(vars, t) => throw new NotImplementedException("not yet implemented")
-    case Count(vars, t) => throw new NotImplementedException("not yet implemented")
-    case Sum(vars, t) => throw new NotImplementedException("not yet implemented")
-    case Max(vars, t) => throw new NotImplementedException("not yet implemented")
-    case Min(vars, t) => throw new NotImplementedException("not yet implemented")
+    case Count(vars, t) => vars match {
+      case Nil => (ResBool(false), a, st)
+      case x :: xs => throw new NotImplementedException("not yet implemented")
+    }
+    case Sum(vars, t) => vars match {
+      case Nil => (ResBool(false), a, st)
+      case x :: xs => throw new NotImplementedException("not yet implemented")
+    }
+    case Max(vars, t) => vars match {
+      case Nil => (ResBool(false), a, st)
+      case x :: xs => throw new NotImplementedException("not yet implemented")
+    }
+    case Min(vars, t) => vars match {
+      case Nil => (ResBool(false), a, st)
+      case x :: xs => throw new NotImplementedException("not yet implemented")
+    }
 
     case _ => throw new EvalException("cannot eval " + a)
+  }
+
+  def tag(v: Value, d: DomId): Value = v match {
+    case ResNum(n) => return ResTagged(Integer(n), d)
+    case ResString(s) => return ResTagged(Str(s), d)
+    case ResTagged(t) => return ResTagged(t._1, d)
+    case _ => throw new EvalException("expected resnum or resstring or restagged, but was " + v)
+  }
+
+  def untag(v: Value): Value = v match {
+    case ResTagged(tagged) => tagged match {
+      case (Integer(n), d) => ResNum(n)
+      case (Str(s), d) => ResString(s)
+    }
+    case _ => throw new EvalException("expected restagged(integer, d) or restagged(string, d), but was " + v)
   }
 
   def eval(a: AST): (Value, AST, Store) = eval(a, Nil)
