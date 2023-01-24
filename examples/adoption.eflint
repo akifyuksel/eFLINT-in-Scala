@@ -11,6 +11,7 @@ Fact natural-parent Identified by parent * child
 Fact adoptive-parent Identified by parent * child
 
 Fact is-adopted Identified by child
+Fact is-natural Identified by child
 
 Fact adoptions Identified by Int
     Derived from Count(Foreach child : child When Holds is-adopted(child))
@@ -30,16 +31,18 @@ Act childbirth
     Actor doctor
     Recipient parent
     Related to child
-    Creates child, natural-parent(parent, child)
+    Creates child, natural-parent(parent, child), is-natural(child)
     Holds when True
 .
 
-+person(Alice). +person(Bob).
++person(Alice).
++person(Bob).
 sign-adoption-papers (Eve, Alice, Bob).
 +person(Chloe).
 childbirth(Frank, Chloe, David).
 ?is-adopted(Bob).
-?is-adopted(David)
+?!is-adopted(David).
+?adoptions==1.
 
 
 // explain why Alice becomes Bob's legal parent when she becomes his adoptive parent

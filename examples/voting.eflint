@@ -14,7 +14,6 @@ Fact has-voted Identified by citizen
 
 Predicate vote-concluded When (Exists candidate : winner(candidate))
 
-
 Fact number-of-votes  Identified by 1..5
   Derived from Count(Foreach vote : vote When Holds(vote))
 

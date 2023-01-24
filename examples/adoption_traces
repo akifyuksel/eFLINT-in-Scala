@@ -1,0 +1,136 @@
+### KNOWLEDGE BASE PER STATE ###
+
+#1 >
+
+
+#2 >
+adoptions(0) = True
+
+
+#3 >
+person("Alice") = True
+adoptions(0) = True
+
+
+#4 >
+person("Alice") = True
+person("Bob") = True
+adoptions(0) = True
+
+
+#5 >
+person("Alice") = True
+person("Bob") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+
+
+#6 >
+person("Alice") = True
+person("Bob") = True
+person("Chloe") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+
+
+#7 >
+person("Alice") = True
+person("Bob") = True
+person("Chloe") = True
+person("David") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+legal-parent(person("Chloe"),person("David")) = True
+natural-parent(person("Chloe"),person("David")) = True
+is-natural(person("David")) = True
+
+
+#8 >
+person("Alice") = True
+person("Bob") = True
+person("Chloe") = True
+person("David") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+legal-parent(person("Chloe"),person("David")) = True
+natural-parent(person("Chloe"),person("David")) = True
+is-natural(person("David")) = True
+
+
+#9 >
+person("Alice") = True
+person("Bob") = True
+person("Chloe") = True
+person("David") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+legal-parent(person("Chloe"),person("David")) = True
+natural-parent(person("Chloe"),person("David")) = True
+is-natural(person("David")) = True
+
+
+#10 >
+person("Alice") = True
+person("Bob") = True
+person("Chloe") = True
+person("David") = True
+adoptions(1) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+legal-parent(person("Chloe"),person("David")) = True
+natural-parent(person("Chloe"),person("David")) = True
+is-natural(person("David")) = True
+
+### CHANGES IN KNOWLEDGE BASE PER STATE ###
+
+#1 => #2 [executing spec]
+New type adoption-agent
+New type adoptions
+New type adoptive-parent
+New type childbirth
+New type doctor
+New type is-adopted
+New type is-natural
+New type legal-parent
+New type natural-parent
+New type person
+New type sign-adoption-papers
++adoptions(0)
+
+
+#2 > :jump 3 [+person(Alice).]
++person("Alice")
+
+#3 > :jump 4 [+person(Bob).]
++person("Bob")
+
+#4 > :jump 5 [sign-adoption-papers (Eve, Alice, Bob).]
+~adoptions(0)
++adoptions(1)
++adoptive-parent(person("Alice"),person("Bob"))
++legal-parent(person("Alice"),person("Bob"))
++is-adopted(person("Bob"))
+
+#5 > :jump 6 [+person(Chloe).]
++person("Chloe")
+
+#6 > :jump 7 [childbirth(Frank, Chloe, David).]
++person("David")
++legal-parent(person("Chloe"),person("David"))
++natural-parent(person("Chloe"),person("David"))
++is-natural(person("David"))
+
+#7 > :jump 8 [?is-adopted(Bob).]
+#8 > :jump 9 [?!is-adopted(David).]
+#9 > :jump 10 [?adoptions==1.]
