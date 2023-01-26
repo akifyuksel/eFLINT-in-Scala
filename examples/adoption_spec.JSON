@@ -1,0 +1,165 @@
+[
+  {
+    "kind": "afact",
+    "name": "person",
+    "type": "String"
+  },
+  {
+    "kind": "placeholder",
+    "name": [
+      "parent"
+    ],
+    "for": "person"
+  },
+  {
+    "kind": "placeholder",
+    "name": [
+      "child"
+    ],
+    "for": "person"
+  },
+  {
+    "kind": "cfact",
+    "name": "legal-parent",
+    "identified-by": [
+      "parent", "child"
+    ],
+    "holds-when": [
+      {
+        "operator": "OR",
+        "operands": [
+          {
+            "identifier": "adoptive-parent",
+            "operands": [
+              [
+                "parent"
+              ],
+              [
+                "child"
+              ]
+            ]
+          },
+          {
+            "identifier": "natural-parent",
+            "operands": [
+              [
+                "parent"
+              ],
+              [
+                "child"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "kind": "cfact",
+    "name": "natural-parent",
+    "identified-by": [
+      "parent",
+      "child"
+    ]
+  },
+  {
+    "kind": "cfact",
+    "name": "adoptive-parent",
+    "identified-by": [
+      "parent",
+      "child"
+    ]
+  },
+  {
+    "kind": "cfact",
+    "name": "is-natural",
+    "identified-by": [
+      "child"
+    ]
+  },
+  {
+    "kind": "cfact",
+    "name": "is-adopted",
+    "identified-by": [
+      "child"
+    ]
+  },
+  {
+    "kind": "afact",
+    "name": "adoptions",
+    "type": "Int",
+    "derived-from": [
+      {
+        "operator": "COUNT",
+        "operands": [{
+          "iterator": "FOREACH",
+          "binds": [ "child" ],
+          "expression": {
+            "operator": "WHEN",
+            "operands": [
+              [
+                "child"
+              ],
+              {
+                "identifier": "is-adopted",
+                "operands": [
+                  [
+                    "child"
+                  ]
+                ]
+              }
+            ]
+          }
+        }]
+      }
+    ]
+  },
+  {
+    "kind": "afact",
+    "name": "adoption-agent"
+  },
+  {
+    "kind": "afact",
+    "name": "doctor"
+  },
+  {
+    "kind": "act",
+    "name": "sign-adoption-papers",
+    "actor": "adoption-agent",
+    "recipient": "parent",
+    "related-to": [ "child" ],
+    "holds-when": true,
+    "creates": [
+      {
+        "identifier": "adoptive-parent",
+        "operands": [["parent"], ["child"]]
+      },
+      {
+        "identifier": "is-adopted",
+        "operands": [["child"]]
+      }
+    ]
+  },
+  {
+    "kind": "act",
+    "name": "childbirth",
+    "actor": "doctor",
+    "recipient": "parent",
+    "related-to": [ "child" ],
+    "holds-when": true,
+    "creates": [
+      ["child"],
+      {
+        "identifier": "natural-parent",
+        "operands": [["parent"], ["child"]]
+      },
+      {
+        "identifier": "is-natural",
+        "operands": [["child"]]
+      }
+    ]
+  }
+]
+
+
+
