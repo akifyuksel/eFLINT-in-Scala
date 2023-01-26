@@ -1,0 +1,57 @@
+{
+  "kind": "phrases",
+  "phrases": [
+    {
+      "kind": "create",
+      "identifier": "person",
+      "operands": ["Alice"]
+    },
+    {
+    "kind": "create",
+    "identifier": "person",
+    "operands": ["Bob"]
+    },
+    {
+      "kind": "trigger",
+      "operand": {
+        "identifier": "sign-adoption-papers",
+        "operands": [ "Eve", "Alice", "Bob" ]
+      }
+    },
+    {
+      "kind": "create",
+      "identifier": "person",
+      "operands": ["Chloe"]
+    },
+    {
+      "kind": "trigger",
+      "operand": {
+        "identifier": "childbirth",
+        "operands": [ "Frank", "Chloe", "David" ]
+      }
+    },
+    {
+      "kind": "query",
+      "expression": {
+        "identifier": "is-adopted",
+        "operands": [ "Bob" ]
+      }
+    },
+    {
+      "kind": "query",
+      "operator": "NOT",
+      "operands": [{
+        "identifier": "is-adopted",
+        "operands": [ "David" ]
+      }]
+    },
+    {
+      "kind": "query",
+      "expression": {
+        "identifier": "adoptions",
+        "operands": [ 1 ]
+      }
+    }
+  ],
+  "updates": true
+}
