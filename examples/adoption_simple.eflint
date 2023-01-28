@@ -23,25 +23,13 @@ Act sign-adoption-papers
     Actor authority
     Recipient parent
     Related to child
-    Creates duty-to-stay-eligible(parent, authority, child), adoptive-parent(parent, child), is-adopted(child)
+    Creates adoptive-parent(parent, child), is-adopted(child)
     Holds when eligible(parent)
-
-Duty duty-to-stay-eligible
-    Holder parent
-    Claimant authority
-    Related to child
-    Violated when !eligible(parent)
-
-Act neglect
-    Actor parent
-    Recipient child
-    Terminates eligible(parent), adoptive-parent(parent,child), is-adopted(child)
 .
 
 +person(Alice).
 +person(Bob).
 +eligible(Alice).
 sign-adoption-papers(Eve, Alice, Bob).
-neglect(Alice,Bob).
-?!is-adopted(Bob).
-?adoptions==0.
+?is-adopted(Bob).
+?adoptions==1.

@@ -1,0 +1,63 @@
+### KNOWLEDGE BASE PER STATE ###
+
+#1 > :d
+
+
+#2 > :d
+adoptions(0) = True
+
+#3 > :d
+person("Alice") = True
+adoptions(0) = True
+
+#4 > :d
+person("Alice") = True
+person("Bob") = True
+adoptions(0) = True
+
+#5 > :d
+person("Alice") = True
+person("Bob") = True
+adoptions(0) = True
+eligible(person("Alice")) = True
+
+#6 > :d
+person("Alice") = True
+person("Bob") = True
+adoptions(1) = True
+eligible(person("Alice")) = True
+adoptive-parent(person("Alice"),person("Bob")) = True
+legal-parent(person("Alice"),person("Bob")) = True
+is-adopted(person("Bob")) = True
+
+
+
+### CHANGES IN KNOWLEDGE BASE PER STATE ###
+
+#1 > :jump 2
+New type adoptions
+New type adoptive-parent
+New type authority
+New type eligible
+New type is-adopted
+New type legal-parent
+New type natural-parent
+New type person
+New type sign-adoption-papers
++adoptions(0)
+
+#2 > :jump 3
++person("Alice")
+
+#3 > :jump 4
++person("Bob")
+
+#4 > :jump 5
++eligible(person("Alice"))
+
+#5 > :jump 6
+~adoptions(0)
++adoptions(1)
++adoptive-parent(person("Alice"),person("Bob"))
++legal-parent(person("Alice"),person("Bob"))
++is-adopted(person("Bob"))
