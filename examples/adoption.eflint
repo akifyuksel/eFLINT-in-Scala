@@ -34,14 +34,13 @@ Duty duty-to-stay-eligible
 
 Act neglect
     Actor parent
-    Recipient child
+    Related to child
     Terminates eligible(parent), adoptive-parent(parent,child), is-adopted(child)
+    Holds when legal-parent(parent, child)
 .
 
 +person(Alice).
 +person(Bob).
 +eligible(Alice).
 sign-adoption-papers(Eve, Alice, Bob).
-neglect(Alice,Bob).
-?!is-adopted(Bob).
-?adoptions==0.
+neglect(Alice, Bob).
