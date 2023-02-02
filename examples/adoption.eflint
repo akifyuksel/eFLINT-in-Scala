@@ -43,5 +43,3 @@ Act neglect
 +eligible(Alice).
 sign-adoption-papers(Eve, Alice, Bob).
 neglect(Alice,Bob).
-?!is-adopted(Bob).
-?adoptions==0.
