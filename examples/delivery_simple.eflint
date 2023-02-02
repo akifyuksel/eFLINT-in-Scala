@@ -1,0 +1,29 @@
+Fact buyer Identified by String       // actor
+Fact product Identified by String     // product
+
+Fact in-stock Identified by product    // is the product in stock?
+Fact product-paid Identified by buyer  // has the buyer paid?
+
+Fact webshop
+
+Act order-product
+  Actor buyer
+  Recipient webshop
+  Related to product
+  Creates duty-to-pay(buyer, webshop, product)
+  Holds when in-stock(Sweater)
+
+Duty duty-to-pay
+  Holder buyer
+  Claimant webshop
+  Related to product
+  Violated when !product-paid
+.
+
++webshop(VD).
++buyer(Alice).
++product(Sweater).
+
+// Scenario: Alice tries to buy a sweater from VD that is not in stock.
+-in-stock(Sweater).                   // the Sweater is not in stock
+order-product(Alice, VD, Sweater).    // the product cannot be ordered as it is not in stock
