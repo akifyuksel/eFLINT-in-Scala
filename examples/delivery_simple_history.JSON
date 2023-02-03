@@ -1,0 +1,236 @@
+{
+  "edges": [
+    {
+      "all-disabled-transitions": [],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [],
+      "source_contents": [],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "Fact buyer Identified by String\nFact product Identified by String\nFact webshop Identified by String\nFact product-paid Identified by buyer\nAct order-product Actor buyer Related to webshop, product\nHolds when TrueCreates product-paid(buyer), duty-to-pay(buyer,webshop,product)\nDuty duty-to-pay Holder buyer Claimant webshop Related to product\nViolated when Not(product-paid(buyer))\nAct fail-payment Actor buyer Related to webshop, product Terminates product-paid(buyer)\n",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 2,
+      "target_contents": [],
+      "created_facts": [],
+      "source_id": 1
+    },
+    {
+      "all-disabled-transitions": [],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [],
+      "source_contents": [],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "order-product(\"Alice\",\"VD\",\"Sweater\")",
+      "all-duties": [
+        {
+          "textual": "duty-to-pay(buyer(\"Alice\"),webshop(\"VD\"),product(\"Sweater\"))",
+          "fact-type": "duty-to-pay",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "webshop(\"VD\")",
+              "fact-type": "webshop",
+              "tagged-type": "string",
+              "value": "VD"
+            },
+            {
+              "textual": "product(\"Sweater\")",
+              "fact-type": "product",
+              "tagged-type": "string",
+              "value": "Sweater"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "new-duties": [
+        {
+          "textual": "duty-to-pay(buyer(\"Alice\"),webshop(\"VD\"),product(\"Sweater\"))",
+          "fact-type": "duty-to-pay",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "webshop(\"VD\")",
+              "fact-type": "webshop",
+              "tagged-type": "string",
+              "value": "VD"
+            },
+            {
+              "textual": "product(\"Sweater\")",
+              "fact-type": "product",
+              "tagged-type": "string",
+              "value": "Sweater"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [
+        {
+          "trans-forced": false,
+          "trans-tagged": {
+            "fact-type": "order-product",
+            "arguments": [
+              {
+                "fact-type": "buyer",
+                "value": "Alice"
+              },
+              {
+                "fact-type": "webshop",
+                "value": "VD"
+              },
+              {
+                "fact-type": "product",
+                "value": "Sweater"
+              }
+            ]
+          },
+          "trans-assignments": [
+            {
+              "assignment": true,
+              "value": {
+                "fact-type": "product-paid",
+                "value": {
+                  "fact-type": "buyer",
+                  "value": "Alice"
+                }
+              }
+            },
+            {
+              "assignment": true,
+              "value": {
+                "fact-type": "duty-to-pay",
+                "arguments": [
+                  {
+                    "fact-type": "buyer",
+                    "value": "Alice"
+                  },
+                  {
+                    "fact-type": "webshop",
+                    "value": "VD"
+                  },
+                  {
+                    "fact-type": "product",
+                    "value": "Sweater"
+                  }
+                ]
+              }
+            }
+          ],
+          "trans-is-action": true,
+          "trans-syncs": [],
+          "trans-actor": [
+            {
+              "elem": "Alice",
+              "elem-type": "string"
+            },
+            "buyer"
+          ]
+        }
+      ],
+      "target_id": 3,
+      "target_contents": [
+        {
+          "textual": "product-paid(buyer(\"Alice\"))",
+          "fact-type": "product-paid",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "duty-to-pay(buyer(\"Alice\"),webshop(\"VD\"),product(\"Sweater\"))",
+          "fact-type": "duty-to-pay",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "webshop(\"VD\")",
+              "fact-type": "webshop",
+              "tagged-type": "string",
+              "value": "VD"
+            },
+            {
+              "textual": "product(\"Sweater\")",
+              "fact-type": "product",
+              "tagged-type": "string",
+              "value": "Sweater"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "product-paid(buyer(\"Alice\"))",
+          "fact-type": "product-paid",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "duty-to-pay(buyer(\"Alice\"),webshop(\"VD\"),product(\"Sweater\"))",
+          "fact-type": "duty-to-pay",
+          "arguments": [
+            {
+              "textual": "buyer(\"Alice\")",
+              "fact-type": "buyer",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "webshop(\"VD\")",
+              "fact-type": "webshop",
+              "tagged-type": "string",
+              "value": "VD"
+            },
+            {
+              "textual": "product(\"Sweater\")",
+              "fact-type": "product",
+              "tagged-type": "string",
+              "value": "Sweater"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_id": 2
+    }
+  ]
+}

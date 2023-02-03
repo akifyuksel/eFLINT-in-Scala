@@ -1,5 +1,11 @@
 class ExplainException(s: String) extends RuntimeException(s)
 
+object parseJSON {
+  def parseJSON(in: JSON): (Phrase, List[Spec], AST) = in match {
+    case _ => throw new NotImplementedException("not yet implemented")
+  }
+}
+
 object Explain {
   /*
     Enter phrase (for now, only consider queries concerning whether duties exist). If the duty exists in the knowledge
@@ -28,7 +34,7 @@ object Explain {
     case PInstQuery(vars, t) => throw new NotImplementedException("not yet implemented")
     case PDeclBlock(decls) => throw new NotImplementedException("not yet implemented")
     case PSkip() => throw new NotImplementedException("not yet implemented")
-    case PSeq(p1, p2) => throw new NotImplementedException("not yet implemented")
+    case PSeq(p1, p2) => explain(p1, s, a) ::: explain(p2, s,a)
 
     case _ => throw new ExplainException("cannot explain" + p)
   }
