@@ -4,15 +4,15 @@
 
 { "command" : "facts" }
 
-{ "command" : "history", value : <INTEGER> }
+{ "command" : "history", "value" : 1 }
 
 { "command" : "history" }
 
 { "command" : "trace-heads" }
 
-{ "command" : "phrase", text : <STRING> }
+{ "command" : "phrase", "text" : <STRING> }
 
-{ "command" : "revert", value : <INTEGER>, destructive : <BOOL> }
+{ "command" : "revert", "value" : <INTEGER>, "destructive" : <BOOL> }
 
 { "command" : "create", "value" : <VALUE> }
 
