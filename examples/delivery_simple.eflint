@@ -1,29 +1,35 @@
-Fact buyer Identified by String       // actor
-Fact product Identified by String     // product
+Fact buyer       // creating an actor
+Fact product     // creating a product
+Fact webshop     // creating a webshop
 
-Fact in-stock Identified by product    // is the product in stock?
-Fact product-paid Identified by buyer  // has the buyer paid?
+Fact product-paid Identified by buyer   // has the buyer paid?
 
-Fact webshop
-
+// the buyer orders a product from the webshop. We automatically assume
+// that the order is paid, but we create a duty-to-pay for the buyer anyway.
 Act order-product
   Actor buyer
   Recipient webshop
   Related to product
-  Creates duty-to-pay(buyer, webshop, product)
-  Holds when in-stock(Sweater)
+  Creates product-paid(buyer), duty-to-pay(buyer, webshop, product)
+  Holds when True
 
+// the buyer has a duty to pay for the sweater after they order it.
+// if the buyer doesn't pay for the sweater, they violate this duty.
 Duty duty-to-pay
   Holder buyer
   Claimant webshop
   Related to product
-  Violated when !product-paid
+  Violated when !product-paid(buyer)
+
+// the buyer fails to pay the price of the product to the webshop.
+// As a result, product-paid(buyer) gets set to False.
+// This violates the duty-to-pay.
+Act fail-payment
+  Actor buyer
+  Recipient webshop
+  Related to product
+  Terminates product-paid(buyer)
 .
 
-+webshop(VD).
-+buyer(Alice).
-+product(Sweater).
-
-// Scenario: Alice tries to buy a sweater from VD that is not in stock.
--in-stock(Sweater).                   // the Sweater is not in stock
-order-product(Alice, VD, Sweater).    // the product cannot be ordered as it is not in stock
+// Scenario: Alice buys a sweater from VD
+order-product(Alice, VD, Sweater).    // buyer Alice orders a product sweater from webshop VD
