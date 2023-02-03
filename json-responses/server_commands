@@ -1,0 +1,29 @@
+{ "command" : "status" }
+
+{ "command" : "kill" }
+
+{ "command" : "facts" }
+
+{ "command" : "history", value : <INTEGER> }
+
+{ "command" : "history" }
+
+{ "command" : "trace-heads" }
+
+{ "command" : "phrase", text : <STRING> }
+
+{ "command" : "revert", value : <INTEGER>, destructive : <BOOL> }
+
+{ "command" : "create", "value" : <VALUE> }
+
+{ "command" : "terminate", "value" : <VALUE> }
+
+{ "command" : "test-present", "value" : <VALUE> }
+
+{ "command" : "test-absent", "value" : <VALUE> }
+
+{ "command" : "enabled", "value" : <VALUE> }
+
+{ "command" : "action", "act-type" : <STRING>, "actor" : <STRING>|<VALUE>, "recipient" : <STRING>|<VALUE>, "objects" : <(STRING|VALUE)*>, "force" : "true"|"false" }
+
+{ "command" : "action|event", "value" : <VALUE>, "force" : "true"|"false" }
