@@ -1,0 +1,1501 @@
+{
+  "edges": [
+    {
+      "all-disabled-transitions": [],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [],
+      "source_contents": [],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "Fact person Identified by String\nPlaceholder parent For person\nPlaceholder child For person\nFact legal-parent Identified by parent * child\n  Holds when adoptive-parent(parent,child) || natural-parent(parent,child)\nFact natural-parent Identified by parent * child\nFact adoptive-parent Identified by parent * child\nFact is-adopted Identified by child\nFact adoptions Identified by Int\n  Derived from Count(Foreach child: child When Holds(is-adopted(child)))\nFact eligible Identified by parent\nFact authority Identified by String\nAct sign-adoption-papers Actor authority Related to parent, child\n  Holds when eligible(parent)    Creates duty-to-stay-eligible(parent,authority,child), adoptive-parent(parent,child), is-adopted(child)\nDuty duty-to-stay-eligible Holder parent Claimant authority Related to child\n  Violated when Not(eligible(parent))\nAct neglect Actor parent Related to child\n  Holds when legal-parent(parent,child)    Terminates eligible(parent), adoptive-parent(parent,child), is-adopted(child)\n",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 2,
+      "target_contents": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "source_id": 1
+    },
+    {
+      "all-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_contents": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "+person(\"Alice\")",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 3,
+      "target_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        }
+      ],
+      "source_id": 2
+    },
+    {
+      "all-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "+person(\"Bob\")",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 4,
+      "target_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        }
+      ],
+      "source_id": 3
+    },
+    {
+      "all-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [],
+      "source_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "+eligible(\"Alice\")",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 5,
+      "target_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        },
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_id": 4
+    },
+    {
+      "all-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "terminated_facts": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "new-enabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "new-disabled-transitions": [],
+      "source_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        },
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "sign-adoption-papers(\"Eve\",\"Alice\",\"Bob\")",
+      "all-duties": [
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "new-duties": [
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "violations": [],
+      "all-enabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "output-events": [
+        {
+          "trans-forced": false,
+          "trans-tagged": {
+            "fact-type": "sign-adoption-papers",
+            "arguments": [
+              {
+                "fact-type": "authority",
+                "value": "Eve"
+              },
+              {
+                "fact-type": "person",
+                "value": "Alice"
+              },
+              {
+                "fact-type": "person",
+                "value": "Bob"
+              }
+            ]
+          },
+          "trans-assignments": [
+            {
+              "assignment": true,
+              "value": {
+                "fact-type": "adoptive-parent",
+                "arguments": [
+                  {
+                    "fact-type": "person",
+                    "value": "Alice"
+                  },
+                  {
+                    "fact-type": "person",
+                    "value": "Bob"
+                  }
+                ]
+              }
+            },
+            {
+              "assignment": true,
+              "value": {
+                "fact-type": "duty-to-stay-eligible",
+                "arguments": [
+                  {
+                    "fact-type": "person",
+                    "value": "Alice"
+                  },
+                  {
+                    "fact-type": "authority",
+                    "value": "Eve"
+                  },
+                  {
+                    "fact-type": "person",
+                    "value": "Bob"
+                  }
+                ]
+              }
+            },
+            {
+              "assignment": true,
+              "value": {
+                "fact-type": "is-adopted",
+                "value": {
+                  "fact-type": "person",
+                  "value": "Bob"
+                }
+              }
+            }
+          ],
+          "trans-is-action": true,
+          "trans-syncs": [],
+          "trans-actor": [
+            {
+              "elem": "Eve",
+              "elem-type": "string"
+            },
+            "authority"
+          ]
+        }
+      ],
+      "target_id": 6,
+      "target_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(1)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 1
+        },
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "adoptive-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "adoptive-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "legal-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "legal-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "is-adopted(person(\"Bob\"))",
+          "fact-type": "is-adopted",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "adoptions(1)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 1
+        },
+        {
+          "textual": "adoptive-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "adoptive-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "legal-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "legal-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "is-adopted(person(\"Bob\"))",
+          "fact-type": "is-adopted",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_id": 5
+    },
+    {
+      "all-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "terminated_facts": [
+        {
+          "textual": "adoptions(1)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 1
+        },
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "adoptive-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "adoptive-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "legal-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "legal-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "is-adopted(person(\"Bob\"))",
+          "fact-type": "is-adopted",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "source_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(1)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 1
+        },
+        {
+          "textual": "eligible(person(\"Alice\"))",
+          "fact-type": "eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "adoptive-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "adoptive-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "legal-parent(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "legal-parent",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "is-adopted(person(\"Bob\"))",
+          "fact-type": "is-adopted",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "neglect(\"Alice\",\"Bob\")",
+      "all-duties": [
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "new-duties": [],
+      "violations": [
+        {
+          "violation": "duty",
+          "value": {
+            "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+            "fact-type": "duty-to-stay-eligible",
+            "arguments": [
+              {
+                "textual": "person(\"Alice\")",
+                "fact-type": "person",
+                "tagged-type": "string",
+                "value": "Alice"
+              },
+              {
+                "textual": "authority(\"Eve\")",
+                "fact-type": "authority",
+                "tagged-type": "string",
+                "value": "Eve"
+              },
+              {
+                "textual": "person(\"Bob\")",
+                "fact-type": "person",
+                "tagged-type": "string",
+                "value": "Bob"
+              }
+            ],
+            "tagged-type": "product"
+          }
+        }
+      ],
+      "all-enabled-transitions": [],
+      "output-events": [
+        {
+          "trans-forced": false,
+          "trans-tagged": {
+            "fact-type": "neglect",
+            "arguments": [
+              {
+                "fact-type": "person",
+                "value": "Alice"
+              },
+              {
+                "fact-type": "person",
+                "value": "Bob"
+              }
+            ]
+          },
+          "trans-assignments": [
+            {
+              "assignment": false,
+              "value": {
+                "fact-type": "eligible",
+                "value": {
+                  "fact-type": "person",
+                  "value": "Alice"
+                }
+              }
+            },
+            {
+              "assignment": false,
+              "value": {
+                "fact-type": "adoptive-parent",
+                "arguments": [
+                  {
+                    "fact-type": "person",
+                    "value": "Alice"
+                  },
+                  {
+                    "fact-type": "person",
+                    "value": "Bob"
+                  }
+                ]
+              }
+            },
+            {
+              "assignment": false,
+              "value": {
+                "fact-type": "is-adopted",
+                "value": {
+                  "fact-type": "person",
+                  "value": "Bob"
+                }
+              }
+            }
+          ],
+          "trans-is-action": true,
+          "trans-syncs": [],
+          "trans-actor": [
+            {
+              "elem": "Alice",
+              "elem-type": "string"
+            },
+            "person"
+          ]
+        }
+      ],
+      "target_id": 7,
+      "target_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        },
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "source_id": 6
+    }
+  ]
+}

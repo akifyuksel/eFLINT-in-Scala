@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "disabled-transitions": [
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Alice\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Alice\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            }
+          ],
+          "tagged-type": "product"
+        },
+        {
+          "textual": "neglect(person(\"Bob\"),person(\"Bob\"))",
+          "fact-type": "neglect",
+          "arguments": [
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "enabled-transitions": [],
+      "duties": [
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "state_contents": [
+        {
+          "textual": "person(\"Alice\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Alice"
+        },
+        {
+          "textual": "person(\"Bob\")",
+          "fact-type": "person",
+          "tagged-type": "string",
+          "value": "Bob"
+        },
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        },
+        {
+          "textual": "duty-to-stay-eligible(person(\"Alice\"),authority(\"Eve\"),person(\"Bob\"))",
+          "fact-type": "duty-to-stay-eligible",
+          "arguments": [
+            {
+              "textual": "person(\"Alice\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Alice"
+            },
+            {
+              "textual": "authority(\"Eve\")",
+              "fact-type": "authority",
+              "tagged-type": "string",
+              "value": "Eve"
+            },
+            {
+              "textual": "person(\"Bob\")",
+              "fact-type": "person",
+              "tagged-type": "string",
+              "value": "Bob"
+            }
+          ],
+          "tagged-type": "product"
+        }
+      ],
+      "state_id": 7
+    }
+  ]
+}
