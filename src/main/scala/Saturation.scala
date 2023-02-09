@@ -1,0 +1,1 @@
+class SaturationException(s: String) extends RuntimeException(s)

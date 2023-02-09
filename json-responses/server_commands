@@ -27,3 +27,7 @@
 { "command" : "action", "act-type" : <STRING>, "actor" : <STRING>|<VALUE>, "recipient" : <STRING>|<VALUE>, "objects" : <(STRING|VALUE)*>, "force" : "true"|"false" }
 
 { "command" : "action|event", "value" : <VALUE>, "force" : "true"|"false" }
+
+{
+
+}

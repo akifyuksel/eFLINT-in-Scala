@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/eFLINT-in-Scala.iml" filepath="$PROJECT_DIR$/.idea/eFLINT-in-Scala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eflint-in-scala.iml" filepath="$PROJECT_DIR$/.idea/modules/eflint-in-scala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eflint-in-scala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/eflint-in-scala-build.iml" />
     </modules>
   </component>
 </project>

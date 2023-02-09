@@ -1,0 +1,1 @@
+class StateException(s: String) extends RuntimeException(s)

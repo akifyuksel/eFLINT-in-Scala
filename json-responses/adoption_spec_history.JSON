@@ -1,0 +1,38 @@
+{
+  "edges": [
+    {
+      "all-disabled-transitions": [],
+      "terminated_facts": [],
+      "new-enabled-transitions": [],
+      "new-disabled-transitions": [],
+      "source_contents": [],
+      "errors": [],
+      "input": [],
+      "query-results": [],
+      "phrase": "Fact person Identified by String\nPlaceholder parent For person\nPlaceholder child For person\nFact legal-parent Identified by parent * child\n  Holds when adoptive-parent(parent,child) || natural-parent(parent,child)\nFact natural-parent Identified by parent * child\nFact adoptive-parent Identified by parent * child\nFact is-adopted Identified by child\nFact adoptions Identified by Int\n  Derived from Count(Foreach child: child When Holds(is-adopted(child)))\nFact eligible Identified by parent\nFact authority Identified by String\nAct sign-adoption-papers Actor authority Related to parent, child\n  Holds when eligible(parent)    Creates duty-to-stay-eligible(parent,authority,child), adoptive-parent(parent,child), is-adopted(child)\nDuty duty-to-stay-eligible Holder parent Claimant authority Related to child\n  Violated when Not(eligible(parent))\nAct neglect Actor parent Related to child\n  Holds when legal-parent(parent,child)    Terminates eligible(parent), adoptive-parent(parent,child), is-adopted(child)\n",
+      "all-duties": [],
+      "new-duties": [],
+      "violations": [],
+      "all-enabled-transitions": [],
+      "output-events": [],
+      "target_id": 2,
+      "target_contents": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "created_facts": [
+        {
+          "textual": "adoptions(0)",
+          "fact-type": "adoptions",
+          "tagged-type": "int",
+          "value": 0
+        }
+      ],
+      "source_id": 1
+    }
+  ]
+}
