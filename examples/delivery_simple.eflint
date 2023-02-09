@@ -1,6 +1,6 @@
-Fact buyer       // creating an actor
-Fact product     // creating a product
-Fact webshop     // creating a webshop
+Fact buyer       // for creating an actor
+Fact product     // for creating a product
+Fact webshop     // for creating a webshop
 
 Fact product-paid Identified by buyer   // has the buyer paid?
 
@@ -13,8 +13,8 @@ Act order-product
   Creates product-paid(buyer), duty-to-pay(buyer, webshop, product)
   Holds when True
 
-// the buyer has a duty to pay for the sweater after they order it.
-// if the buyer doesn't pay for the sweater, they violate this duty.
+// the buyer has a duty to pay for the sweater after they order it. if it
+// turns out that the buyer hasn't paid for the sweater, they violate this duty.
 Duty duty-to-pay
   Holder buyer
   Claimant webshop
